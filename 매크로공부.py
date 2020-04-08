@@ -1,5 +1,6 @@
 from selenium import webdriver
 import time
+import pyautogui
 
 #sigwan = webdriver.Chrome('C:\\Users\\rhtjd\\AppData\\Local\\Programs\\Python\\chromedriver.exe')
 #url = 'http://comci.kr/st/'
