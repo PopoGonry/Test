@@ -1,0 +1,74 @@
+# 제작자 : 포포곤리
+
+# << 테스트 환경 >>
+# Server : 1.12.2 catserver
+# skript : 2.2-dev24
+
+# #################################################### #
+
+options:
+    
+    # 메세지 출력시 사용되는 머릿말 입니다. ([&6&lPopo&7Gonry&f-&c&lSTOCK&r]&7)
+    INFO : [&6&lPopo&7Gonry&r-&c&lSTOCK&r]&7
+
+# #################################################### #  
+
+
+options:
+    KUNG: [&a&lK&rung&7-&c&lSTOCK&r]&7
+
+
+function makingSTCh(t: text):
+    add {_t} to {{@KUNG}.List::*}
+
+function openSTChGUI(t: text):
+
+command /주식채널초기화:
+    trigger:
+        delete {{@KUNG}.List::*}         
+
+command /tt [<text>]:
+    trigger:
+        set {none} to arg-1
+
+command /주식 [<text>] [<text>]:
+    trigger:
+        if arg-1 = "채널생성":
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    message "{@KUNG} : 같은 이름의 채널이 존재합니다."
+                    stop
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널생성 &b[채널이름]"
+                stop
+
+            makingSTCh(arg-2)
+            message "{@KUNG} : 주식 채널 &b&l%arg-2%&r&7가 생성 되었습니다."
+        
+        else if arg-1 = "채널":
+            message "{@KUNG} : - 주식 채널 리스트 -"
+            set {_int} to 0
+            loop {{@KUNG}.List::*}:
+                add 1 to {_int}
+                message "&7%{_int}% : &b&l%loop-value%"
+        else:
+            message "{@KUNG} : 사용법:"
+
+
+
+command /t [<text>]:
+    trigger:
+        makingSTCh(arg-1)
+        message "{@KUNG} : 주식 채널 &b&l%arg-1%&r&7가 생성 되었습니다."
+
+command /test:
+    trigger:
+        open chest with 6 rows named "Test" to player
+        set slot 12 of current inventory of player to 1 166 named "dd"
+    
+
+on inventory click:
+    if clicked raw slot is 12:
+        cancel event
+
+
