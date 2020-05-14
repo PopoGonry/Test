@@ -1,0 +1,411 @@
+# 제작자 : 포포곤리
+
+# << 테스트 환경 >>
+# Server : 1.12.2 catserver
+# skript : 2.2-dev24
+
+# #################################################### #
+
+options:
+    
+    # 메세지 출력시 사용되는 머릿말 입니다. ([&6&lPopo&7Gonry&f-&c&lSTOCK&r]&7)
+    INFO : [&6&lPopo&7Gonry&r-&c&lSTOCK&r]&7
+
+# #################################################### #  
+
+
+options:
+    KUNG: &r[&a&lK&rung&7-&c&lSTOCK&r]&7
+
+
+function test(p: player):
+    message "test" to {_p}
+
+function resetSTCh(p: player):
+    message "{@KUNG} : &r&4주의!! &r&7주식 채널초기화를 원하시면, &b/채널초기화확인 [첫번째 주식 채널 이름]&7 을 입력해주세요. &8(/c : 취소)" to {_p}
+    set {resetSTCh.%{_p}%} to "true"
+
+function makingSTCh(t: text, p: player):
+    add {_t} to {{@KUNG}.List::*}
+    add 0 to {{@KUNG}.%{_t}%.ST::*}
+    message "{@KUNG} : 주식 채널 &b&l%{_t}%&r&7가 생성 되었습니다." to {_p}
+
+function deleteSTCh(t: text, p: player):
+    subtract {_t} from {{@KUNG}.List::*}
+    delete {{@KUNG}.%{_t}%.ST::*}
+    message "{@KUNG} : 주식 채널 &b&l%{_t}%&r&7가 제거 되었습니다." to {_p}
+
+function renameSTCh(t: text, tt: text, p: player):
+    set {_int} to arraytoIndexSTCh({_t}, {_p})
+    set {{@KUNG}.List::%{_int}%} to {_tt}
+    message "{@KUNG} : 주식 채널 &4&l%{_t}%&r&7의 이름이 &b&l%{_tt}%&r&7으로 변경 되었습니다." to {_p}
+
+function managerST(t: text, p: player):
+    open chest with 6 rows named "{@KUNG} &b&l%{_t}% &c&l주식관리" to {_p}
+    set {_int} to 0
+    loop {{@KUNG}.%{_t}%.ST::*}:
+        set slot {_int} of current inventory of {_p} to loop-value
+        if loop-value = 0:
+            add 0 to {_int}
+        else:
+            add 1 to {_int}
+    set slot 45 of current inventory of {_p} to 1 369 named "{@KUNG} &c&l뒤로가기"
+    if {_int} != 45:
+        set slot 94 of current inventory of {_p} to 1 399 named "{@KUNG} &6&l주식 갯수 &7&r: &a&l%{_int}%"
+    else:
+        set slot 49 of current inventory of {_p} to 1 166 named "{@KUNG} &6&l주식 갯수 &7&r: &c&l%{_int}% &8(MAX)"
+
+
+    set {%{_t}%.STC} to {_int}
+
+function subST(t: text, p: player):
+    open chest with 6 rows named "&6채널 &b&l%{_t}%&r&7 주식 등록" to {_p}
+
+function arraytoIndexSTCh(t: text, p: player) :: integer:
+    set {_int} to 1
+    loop {{@KUNG}.List::*}:
+        if {_t} = loop-value:
+            return {_int}
+        else:
+            add 1 to {_int}
+
+function checkSTChList(p: player):
+    if {{@KUNG}.List::*} is not set:
+        message "{@KUNG} : 주식 채널이 존재하지 않습니다." to {_p}
+        stop
+    message "{@KUNG} : - 주식 채널 리스트 -" to {_p}
+    set {_int} to 0
+    loop {{@KUNG}.List::*}:
+        add 1 to {_int}
+        message "&7%{_int}% : &b&l%loop-value%" to {_p}
+
+function openSTChGUI(t: text, p: player):
+    open chest with 3 rows named "&6채널 &b&l%{_t}%&r&7 관리" to {_p}
+    set slot 0 of current inventory of {_p} to 1 160
+    set slot 1 of current inventory of {_p} to 1 160
+    set slot 2 of current inventory of {_p} to 1 160 
+    set slot 3 of current inventory of {_p} to 1 160 
+    set slot 4 of current inventory of {_p} to 1 160 
+    set slot 5 of current inventory of {_p} to 1 160 
+    set slot 6 of current inventory of {_p} to 1 160 
+    set slot 7 of current inventory of {_p} to 1 160 
+    set slot 8 of current inventory of {_p} to 1 160 
+    set slot 9 of current inventory of {_p} to 1 160
+
+    set slot 11 of current inventory of {_p} to 1 339 named "{@KUNG} &6&l주식"
+    set slot 12 of current inventory of {_p} to 1 340 named "{@KUNG} &c&l주식관리"
+    set slot 13 of current inventory of {_p} to 1 133 named "{@KUNG} &6채널 &b&l%{_t}%&r&7"
+    set slot 14 of current inventory of {_p} to 1 421 named "{@KUNG} &a&l이름변경"
+    set slot 15 of current inventory of {_p} to 1 166 named "{@KUNG} &l&4※채널삭제※"
+   
+
+
+
+
+    set slot 10 of current inventory of {_p} to 1 160
+    set slot 16 of current inventory of {_p} to 1 160
+    set slot 17 of current inventory of {_p} to 1 160
+    set slot 18 of current inventory of {_p} to 1 160
+    set slot 19 of current inventory of {_p} to 1 160
+    set slot 20 of current inventory of {_p} to 1 160
+    set slot 21 of current inventory of {_p} to 1 160
+    set slot 22 of current inventory of {_p} to 1 160
+    set slot 23 of current inventory of {_p} to 1 160
+    set slot 24 of current inventory of {_p} to 1 160
+    set slot 25 of current inventory of {_p} to 1 160
+    set slot 26 of current inventory of {_p} to 1 160
+
+command /채널초기화확인 [<text>]:
+    trigger:
+        if {resetSTCh.%player%} = "true":
+            if arg-1 = {{@KUNG}.List::1}:
+                message "{@KUNG} : &r&4주식 채널초기화&r&7가 완료 되었습니다."
+                loop {{@KUNG}.List::*}:
+                    delete {{@KUNG}.%loop-value%.ST::*}
+                delete {{@KUNG}.List::*}
+                set {resetSTCh.%player%} to "false"
+            else:
+                message "{@KUNG} : 잘못된 채널이름을 입력하여, &r&4주식 채널초기화&r&7가 취소 되었습니다."    
+                set {resetSTCh.%player%} to "false"
+        else:
+            message "{@KUNG} : 현재 &r&4주식 채널초기화&r&7 확인 상태가 아닙니다."
+
+command /c:
+    trigger:
+        if {resetSTCh.%player%} = "true":
+            set {resetSTCh.%player%} to "false"
+            message "{@KUNG} : &r&4주식 채널초기화&r&7가 취소 되었습니다."
+        else:
+            message "{@KUNG} : 현재 &r&4주식 채널초기화&r&7 확인 상태가 아닙니다."
+command /cc:
+    trigger:
+        if {renameSTCh.%player%} = "true":
+            set {renameSTCh.%player%} to "false"
+            message "{@KUNG} : &r&a주식 채널이름변경&r&7이 취소 되었습니다."
+        else:
+            message "{@KUNG} : 현재 &r&a주식 채널이름변경&r&7 상태가 아닙니다."
+
+command /채널이름변경 [<text>]:
+    trigger:
+        if {renameSTCh.%player%} = "true":
+            message "{@KUNG} : &r&a주식 채널 &b&l%{%player%.STChNa}%&r&7이 &b&l%arg-1%&r&7로 변경 완료 되었습니다."
+            set {resetSTCh.%player%} to "false"
+            set {_int} to arraytoIndexSTCh({%player%.STChNa} , player)
+            set {{@KUNG}.List::%{_int}%} to arg-1 
+        else:
+            message "{@KUNG} : 현재 &r&a주식 채널이름변경&r&7 상태가 아닙니다."
+
+command /주식 [<text>] [<text>] [<text>]:
+    trigger:
+        if arg-1 = "채널생성":
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    message "{@KUNG} : 같은 이름의 채널이 존재합니다."
+                    stop
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널생성 &b[채널이름]"
+                stop
+
+            makingSTCh(arg-2, player)
+
+        else if arg-1 = "채널제거":
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    deleteSTCh(arg-2, player)
+                    stop
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널제거 &b[채널이름]"
+                stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "채널초기화":
+            resetSTCh(player)
+
+
+        else if arg-1 = "채널" or "채널리스트":
+            checkSTChList(player)
+
+        else if arg-1 = "채널관리":
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    openSTChGUI(arg-2, player)
+                    stop
+                if arg-2 is not set:
+                    message "{@KUNG} : &l사용법&r&7: /주식 채널관리 &b[채널이름]"
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "채널이름변경":
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    renameSTCh(arg-2, arg-3, player)
+                    stop
+                if arg-2 is not set:
+                    message "{@KUNG} : &l사용법&r&7: /주식 채널이름변경 &b[채널이름]"
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+            
+        else:
+            message "{@KUNG} : 사용법:"
+
+
+
+
+command /test:
+    trigger:
+        open chest with 6 rows named "Test" to player
+        set slot 12 of current inventory of player to 1 166 named "dd"
+    
+
+on inventory click:
+    if iname contains "관리" and "채널":
+        set {%player%.Chname} to iname
+        replace all " " and "&6채널" and "&r&7관리" and "&b&l" with "" in {%player%.Chname}
+        if clicked raw slot is 0 or 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 16 or 17 or 18 or 19 or 20 or 21 or 22 or 23 or 24 or 25 or 26:
+            cancel event
+        if clicked raw slot is 15:
+            cancel event
+            open chest with 1 row named "{@KUNG} &l&4※채널삭제※ &r&c확인" to player
+            set slot 4 of current inventory of player to 1 166 named "{@KUNG} &l&4※확인※"
+        if clicked raw slot is 12:
+            cancel event
+            managerST({%player%.Chname}, player)
+        if clicked raw slot is 14:
+            cancel event
+            set {renameSTCh.%player%} to "true"
+            set {%player%.STChNa} to {%player%.Chname}
+            message "{@KUNG} : &r&7주식 채널이름변경를 원하시면, &b/채널이름변경 [새로운 채널 이름]&7 을 입력해주세요. &8(/cc : 취소)"
+            close inventory of player
+
+    if iname contains "&l&4※채널삭제※ &r&c확인":
+        if clicked raw slot is 4:
+            cancel event
+            replace all " " and "&6채널" and "&r&7관리" and "&b&l" with "" in {%player%.Chname}
+            deleteSTCh({%player%.Chname}, player)
+            close inventory of player
+
+    if iname contains "&c&l주식관리":
+        if clicked raw slot is 0:
+
+        if clicked raw slot is 1:
+
+        if clicked raw slot is 2:
+
+        if clicked raw slot is 3:
+
+        if clicked raw slot is 4:
+
+        if clicked raw slot is 5:
+
+        if clicked raw slot is 6:
+
+        if clicked raw slot is 7:
+
+        if clicked raw slot is 8:
+
+        if clicked raw slot is 9:
+
+        if clicked raw slot is 10:
+
+        if clicked raw slot is 11:
+
+        if clicked raw slot is 12:
+
+        if clicked raw slot is 13:
+
+        if clicked raw slot is 14:
+
+        if clicked raw slot is 15:
+
+        if clicked raw slot is 16:
+
+        if clicked raw slot is 17:
+
+        if clicked raw slot is 18:
+
+        if clicked raw slot is 19:
+
+        if clicked raw slot is 20:
+        
+        if clicked raw slot is 21:
+        
+        if clicked raw slot is 22:
+        
+        if clicked raw slot is 23:
+        
+        if clicked raw slot is 24:
+        
+        if clicked raw slot is 25:
+        
+        if clicked raw slot is 26:
+        
+        if clicked raw slot is 27:
+        
+        if clicked raw slot is 28:
+        
+        if clicked raw slot is 29:
+        
+        if clicked raw slot is 30:
+        
+        if clicked raw slot is 31:
+        
+        if clicked raw slot is 32:
+        
+        if clicked raw slot is 33:
+        
+        if clicked raw slot is 34:
+        
+        if clicked raw slot is 35:
+        
+        if clicked raw slot is 36:
+        
+        if clicked raw slot is 37:
+        
+        if clicked raw slot is 38:
+        
+        if clicked raw slot is 39:
+        
+        if clicked raw slot is 40:
+        
+        if clicked raw slot is 41:
+        
+        if clicked raw slot is 42:
+        
+        if clicked raw slot is 43:
+        
+        if clicked raw slot is 44:
+        
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        if clicked raw slot is 49:
+            cancel event
+            replace all " " and "&6채널" and "&r&7관리" and "&b&l" with "" in {%player%.Chname}
+            subST({%player%.Chname}, player)
+        if clicked raw slot is 45:
+            cancel event
+            replace all " " and "&6채널" and "&r&7관리" and "&b&l" with "" in {%player%.Chname}
+            openSTChGUI({%player%.Chname}, player)
+
+on inventory close:
+    if icname contains "주식 등록":
+        set {_i} to 45
+        set {_int} to 0
+        set {%player%.Chname} to icname
+        replace all " " and "&6채널" and "&r&7주식" and "등록" and "반환" and "&b&l" with "" in {%player%.Chname}
+        set {_int} to 0
+        set {_itemv} to 0
+        delete {_item::*}
+        loop 54 times:
+            if slot {_int} of current inventory of player is not 0 0:
+                add slot {_int} of current inventory of player to {_item::*}
+                add 1 to {_itemv}
+            add 1 to {_int}
+
+        subtract {%{%player%.Chname}%.STC} from {_i}
+        if {_itemv} = 0:
+            stop
+
+        if {_i} >= {_itemv}:
+            add {_item::*} to {{@KUNG}.%{%player%.Chname}%.ST::*}
+
+        else:
+            message "{@KUNG} : 등록 가능한 주식수 초과로 인해 반환됩니다. &8(등록 가능 주식수:%{_i}%개)"
+            wait 1 seconds
+            set {_int} to 0
+            open chest with 6 rows named "&6채널 &b&l%{%player%.Chname}%&r&7 주식 반환" to player
+            loop {_item::*}:
+                set slot {_int} of current inventory of player to loop-value
+                add 1 to {_int}
+
+
+
+
+
+
+command /ttest:
+    trigger:
+        set {_int} to 10
+        message "%{_int}/10%"
+        set {_int} to {_int}/10
+        message "%{_int}%"

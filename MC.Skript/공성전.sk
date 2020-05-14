@@ -1,0 +1,195 @@
+
+# 제작자 : 포포곤리
+
+# << 테스트 환경 >>
+# Server : 1.12.2 catserver
+# skript : 2.2-dev32
+
+# #################################################### #
+
+options:
+    
+    # 메세지 출력시 사용되는 머릿말 입니다. ([&6&lPopo&7Gonry&f-&6&lSIEGE&r]&7)
+    INFO : [&6&lPopo&7Gonry&r-&6&lSIEGE&r]&7
+
+# #################################################### #  
+
+#변수 목록 : 
+
+variables:
+    {SG.GameCondition} = "Ready"
+
+options:
+    KUNG: &r[&a&lK&rung&7-&c&lSIEGE&r]&7
+
+
+function gameStart(p: player):
+    message "{@KUNG} : 게임이 시작했습니다!" to {_p}
+    set {SG.GameCondition} to "Game"
+    loop all players:
+        teamspawn({SG.%loop-value%.TEAM}, loop-value)
+
+function gameEnd(p: player):
+    message "{@KUNG} : 게임이 종료됬습니다!" to {_p}
+    set {SG.GameCondition} to "Ready"
+    
+function teamList(p: player):
+    if {SG::TEAM::*} is not set:
+        message "{@KUNG} : &6&l팀&6&l이 존재하지 않습니다." to {_p}
+    else:
+        message "{@KUNG} : &6&l- 팀 리스트 -" to {_p}
+        set {_int} to 1
+        loop {SG::TEAM::*}:
+            message "{@KUNG} : %{_int}%. &a&l%loop-value%" to {_p}
+            add 1 to {_int}
+
+function teamCreate(t: text, p: player):
+    loop {SG::TEAM::*}:
+        if {_t} = loop-value:
+            message "{@KUNG} : &6&l%{_t}%&r&7이(가) 이미 존재합니다." to {_p}
+            stop
+            
+    set {SG::TEAM::%{_t}%} to {_t}
+    message "{@KUNG} : &6&l%{_t}%&r&7이(가) &a&l생성&6&l되었습니다." to {_p}
+
+function teamDelete(t: text, p: player):
+    loop {SG::TEAM::*}:
+        if {_t} = loop-value:
+            message "{@KUNG} : &6&l%{_t}%&r&7이(가) &c&l제거&r&7되었습니다." to {_p}
+            subtract {_t} from {SG::TEAM::*}
+            stop
+    message "{@KUNG} : &6&l%{_t}%&r&7이(가) 존재하지 않습니다." to {_p}
+function teamJoin(t: text, p: player):
+    loop {SG::TEAM::*}:
+        if {_t} = loop-value:
+            if {SG.%{_p}%.TEAM} is set:
+                message "{@KUNG} : &6&l%{SG.%{_p}%.TEAM}%&r&7에 &c&l이미 &r&7참가되어있습니다." to {_p}
+                stop
+            message "{@KUNG} : &6&l%{_t}%&r&7에 &b&l참가&r&7되었습니다." to {_p}
+            add {_p} to {SG::TEAM::%{_t}%::teamlist::*}
+            set {SG.%{_p}%.TEAM} to "%{_t}%"
+            stop
+    message "{@KUNG} : &6&l%{_t}%&r&7이(가) 존재하지 않습니다." to {_p}
+
+function teamLeave(p: player):
+    if {SG.%{_p}%.TEAM} is not set:
+        message "{@KUNG} : &6&l팀&6&l이 존재하지 않습니다." to {_p}
+        stop
+    message "{@KUNG} : &6&l%{SG.%{_p}%.TEAM}%&r&7에서 &c&l제외&r&7되었습니다." to {_p}
+    subtract {_p} from {SG::TEAM::%{SG.%{_p}%.TEAM}%::teamlist::*}
+    delete {SG.%{_p}%.TEAM}
+
+function teamSpawnSet(t: text, p: player):
+    loop {SG::TEAM::*}:
+        if {_t} = loop-value:
+            message "{@KUNG} : 현재 플레이어 위치가 &6&l%{_t}%&r&7의 스폰위치로 &a&l설정&r&7되었습니다." to {_p}
+            set {SG::TEAM::%{_t}%::spawn} to location of {_p}
+            stop
+    message "{@KUNG} : &6&l%{_t}%&r&7이(가) 존재하지 않습니다." to {_p}
+
+function teamspawn(t: text, p: player):
+    loop {SG::TEAM::*}:
+        if {_t} = loop-value:
+            teleport {_p} to {SG::TEAM::%{_t}%::spawn}
+            stop
+    message "{@KUNG} : &6&l%{_t}%&r&7이(가) 존재하지 않습니다." to {_p}
+
+function placeModeSet(p: player):
+    open chest with 1 rows named "{@KUNG} &6설치모드 GUI" to {_p}
+    set {_int} to 0
+    loop 9 times:
+        set slot {_int} of current inventory of {_p} to 1 160
+        add 1 to {_int}
+    if {SG.%{_p}%.placemode} is not set:
+        set slot 4 of current inventory of {_p} to 1 166 named "{@KUNG} : 일반모드"
+    else if {SG.%{_p}%.placemode} = "CORE":
+        set slot 4 of current inventory of {_p} to 1 57 named "{@KUNG} : 심장모드"
+    else if {SG.%{_p}%.placemode} = "BUFF":
+        set slot 4 of current inventory of {_p} to 1 116 named "{@KUNG} : 버프모드"
+
+function placeCoreMode(l: location, p: player):
+    set {SG::CORE::%{_l}%} to {_l}
+    open chest with 3 rows named "{@KUNG} &6심장 세부설정 GUI" to {_p}
+    set {_int} to 0
+    loop 27 times:
+        set slot {_int} of current inventory of {_p} to 1 160
+        add 1 to {_int}
+
+    #if {SG.%{_p}%.placemode} is not set:
+    #    set slot 11 of current inventory of {_p} to 1 166 named "{@KUNG} : 없음"
+    #else if {SG.%{_p}%.placemode} = "CORE":
+    #    set slot 11 of current inventory of {_p} to 1 57 named "{@KUNG} : 하위심장모드"
+    #else if {SG.%{_p}%.placemode} = "BUFF":
+    #    set slot 11 of current inventory of {_p} to 1 116 named "{@KUNG} : 상위심장모드"
+
+    set slot 13 of current inventory of {_p} to 1 160:3
+    set slot 15 of current inventory of {_p} to 1 160:3
+
+
+
+function placeBuffMode(l: location, p: player):
+    set {SG::BUFF::%{_l}%} to {_l}
+    open chest with 3 rows named "{@KUNG} &6버프 세부설정 GUI" to {_p}
+    set {_int} to 0
+    loop 27 times:
+        set slot {_int} of current inventory of {_p} to 1 160
+        add 1 to {_int}
+
+
+command /sg [<text>] [<text>]:
+    trigger:
+        if arg-1 is "게임시작" or "start" or "s":
+            gameStart(player)
+        if arg-1 is "게임종료" or "end" or "e":
+            gameEnd(player)
+        if arg-1 is "팀" or "t":
+            teamList(player)
+        if arg-1 is  "팀생성" or "teamcreate" or "tc":
+            teamCreate(arg-2, player)
+        if arg-1 is "팀제거" or "teamdelete" or "td":
+            teamDelete(arg-2, player)
+        if arg-1 is "팀참가" or "teamjoin" or "tj":
+            teamJoin(arg-2, player)
+        if arg-1 is "팀나가기" or "teamleave" or "tl":
+            teamLeave(player)
+        if arg-1 is "팀스폰설정" or "setspawn" or "tss":
+            teamSpawnSet(arg-2, player)
+        if arg-1 is "팀스폰" or "spawn" or "ts":
+            teamspawn(arg-2, player)
+        if arg-1 is "설치모드" or "placemode" or "pm" or "p":
+            placeModeSet(player)
+            
+
+on inventory click:
+    if iname contains "{@KUNG} &6설치모드 GUI":
+        cancel event
+        if clicked raw slot is 4:
+            if {SG.%player%.placemode} is not set:
+                set {SG.%player%.placemode} to "CORE"
+            else if {SG.%player%.placemode} = "CORE":
+                set {SG.%player%.placemode} to "BUFF"
+            else if {SG.%player%.placemode} = "BUFF":
+                delete {SG.%player%.placemode}
+            placeModeSet(player)
+
+on place:
+    if {SG.GameCondition} = "Ready":
+        set {_l} to location of event-block
+        if {SG.%player%.placemode} = "CORE":
+            placeCoreMode({_l}, player)
+        else if {SG.%player%.placemode} = "BUFF":
+            placeBuffMode({_l}, player)
+
+on respawn:
+    if {SG.GameCondition} = "Game":
+        wait 1 tick
+        teamspawn({SG.%player%.TEAM}, player)
+
+on break:
+    if {SG.GameCondition} = "Ready":
+        loop {SG::CORE::*}:
+            if location of event-block = loop-value:
+                delete {SG::CORE::%loop-value%}
+        loop {SG::BUFF::*}:
+            if location of event-block = loop-value:
+                delete {SG::BUFF::%loop-value%}

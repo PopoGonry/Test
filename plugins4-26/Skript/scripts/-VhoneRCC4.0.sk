@@ -1,0 +1,605 @@
+# 제작자 : vhone
+# 릴리즈 : http://v_hone.blog.me/220926871716
+
+# 블로그에서 정식으로 배포하는 스크립트입니다.
+# 수정사항이 있으면 블로그에 덧글 남겨주세요.
+# 절대로 스크립트를 수정하거나 재배포하지 말아주세요.
+
+# << 테스트 환경 >>
+# Server : Spigot 1.11.2-R0.1-SNAPSHOUT (Build55)
+# Java : jre1.8.0_111
+# Skript : 2.2-dev24
+
+# ####################################################### #
+
+options:
+
+	# 메세지 출력시 사용되는 머릿말 입니다. ( 기본설정 : [&c&lV&rhone&7-&c&lRCC&r]&7)
+	INFO: [&c&lV&rhone&7-&c&lRCC&r]&7
+
+	# CREATE는 제작/파괴/명령에 대한 권한을 설정합니다. ( 기본설정 : user )
+	# USE는 사용에 대한 권한을 설정합니다. ( 기본설정 : user )
+	# 설정 단어는 admin / user 입니다. ( admin 으로 설정시 op권한을 가진 유저만 가능합니다. )
+	CREATE: user
+	USE: user
+
+	# 채널상자 최대갯수와 연결상자 최대갯수 설정입니다. ( 기본설정 : 3 )
+	CHANNAL: 3
+	SERV: 3
+
+# ####################################################### #
+
+options:
+	KEY.CODE: [vrcc]
+	KEY.WORD: [연결]
+	KEY.SUCCESS: [상자연결]
+	FAIL: [실패]
+	PUBLIC.CODE: public
+	PUBLIC.WORD: 공공
+	PUBLIC.SUCCESS: 공공시설
+	OPERATOR: operator
+	CHANNAL.NAME: V
+	CHANNAL.NAME.S: v
+function getLowerCase(t: text) :: text:
+	if {_t} is "":
+		return ""
+	set {_l::%{_t}%} to ""
+	loop {_l::*}:
+		return loop-index
+function runSignText(t1: text, t2: text, t3: text, t4: text, l: location):
+	wait 1 tick
+	set line 1 of block 0 up {_l} to {_t1}
+	set line 2 of block 0 up {_l} to {_t2}
+	set line 3 of block 0 up {_l} to {_t3}
+	set line 4 of block 0 up {_l} to {_t4}
+function getAdjoinLocation(l: location) :: location:
+	if block 0 up {_l}'s facing is north:
+		set {_b} to location 1 south {_l}
+	if block 0 up {_l}'s facing is south:
+		set {_b} to location 1 north {_l}
+	if block 0 up {_l}'s facing is east:
+		set {_b} to location 1 west {_l}
+	if block 0 up {_l}'s facing is west:
+		set {_b} to location 1 east {_l}
+	return {_b}
+function getDependLocation(l: location) :: locations:
+	if block 1 north {_l}'s facing is north:
+		set {_s::n} to location 1 north {_l}
+	if block 1 south {_l}'s facing is south:
+		set {_s::s} to location 1 south {_l}
+	if block 1 east {_l}'s facing is east:
+		set {_s::e} to location 1 east {_l}
+	if block 1 west {_l}'s facing is west:
+		set {_s::w} to location 1 west {_l}
+	return {_s::*}
+function getDoubleChest(l: location) :: location:
+	if block 1 north {_l} is chest:
+		set {_c} to location 1 north {_l}
+	if block 1 south {_l} is chest:
+		set {_c} to location 1 south {_l}
+	if block 1 east {_l} is chest:
+		set {_c} to location 1 east {_l}
+	if block 1 west {_l} is chest:
+		set {_c} to location 1 west {_l}
+	return {_c}
+function runVRCCHelpEng(p: player, c: text):
+	message "========== %{world::vrcc}% ==========" to {_p}
+	message "&c-&r /%{_c}% help : &7도움말을 보여줍니다." to {_p}
+	message "&c-&r /%{_c}% list : &7연결된 상자목록을 보여줍니다." to {_p}
+	message "&c-&r /%{_c}% rename <CHANNAL.NAME> <NAME>: &7채널의 이름을 바꿉니다." to {_p}
+	message "&c-&r /%{_c}% swap <CHANNAL.NAME> <NAME> <NAME> : &7상자의 이름을 바꿉니다." to {_p}
+	message "&c-&r /%{_c}% remove <CHANNAL.NAME> <NAME> : &7상자를 제거합니다." to {_p}
+	message "&c-&r 릴리즈 : &chttp://v_hone.blog.me/220926871716" to {_p}
+function runVRCCHelpKor(p: player, c: text):
+	message "========== %{world::vrcc}% ==========" to {_p}
+	message "&c-&r /%{_c}% 명령어 : &7도움말을 보여줍니다." to {_p}
+	message "&c-&r /%{_c}% 목록 : &7연결된 상자목록을 보여줍니다." to {_p}
+	message "&c-&r /%{_c}% 채널변경 <CHANNAL.NAME> <NAME>: &7채널의 이름을 바꿉니다." to {_p}
+	message "&c-&r /%{_c}% 이름변경 <CHANNAL.NAME> <NAME> <NAME> : &7상자의 이름을 바꿉니다." to {_p}
+	message "&c-&r /%{_c}% 제거 <CHANNAL.NAME> <NAME> : &7상자를 제거합니다." to {_p}
+	message "&c-&r 릴리즈 : &chttp://v_hone.blog.me/220926871716" to {_p}
+function getVRCCListConnectioin(u: text, ch: text) :: text:
+	if {vrcc.%{_u}%.%{_ch}%.serv::*} is set:
+		loop {vrcc.%{_u}%.%{_ch}%.serv::*}:
+			if {_r} is not set:
+				set {_r} to "상자 : %loop-index%"
+			else:
+				set {_r} to "%{_r}% / %loop-index%"
+	if {_r} is not set:
+		set {_r} to "연결된 상자없음"
+	return {_r}
+function getVRCCListChannal(u: text) :: text:
+	loop {vrcc.%{_u}%.channel::*}:
+		if {_r} is not set:
+			set {_r} to "체널 : %loop-value%"
+		else:
+			set {_r} to "%{_r}% / %loop-value%"
+	if {_r} is not set:
+		return "개설된 채널없음"
+	else:
+		return {_r}
+function runVRCCList(u: text, p: player):
+	if {vrcc.%{_u}%.channel::*} is not set:
+		message "{@INFO} 연결된 상자가 없습니다." to {_p}
+		stop
+	loop {vrcc.%{_u}%.channel::*}:
+		if {vrcc.%{_u}%.%loop-value-1%.core} is set:
+			set {_l} to "&f%loop-value-1%&7 = &cV&7 =&f"
+		else:
+			set {_l} to "&f%loop-value-1%&7 = &8V&7 =&8"
+		set {_n} to number of {vrcc.%{_u}%.%loop-value-1%.serv::*} - 1
+		loop {vrcc.%{_u}%.%loop-value-1%.serv::*}:
+			set {_l} to "%{_l}% %loop-index-2%"
+			if {_n} > 0:
+				set {_l} to "%{_l}% /"
+				remove 1 from {_n}
+		message "{@INFO} %{_l}%" to {_p}
+function getVRCCArgTwoError(u: text, p: player, a: text) :: boolean:
+	loop {vrcc.%{_u}%.channel::*}:
+		loop-value is {_a}
+		set {_e} to true
+	if {_e} is not set:
+		message "{@INFO} %{_a}%채널는 개설되지 않았습니다. ( %getVRCCListChannal({_u})% )" to {_p}
+		return true
+function runVRCCRename(u: text, p: player, a2: text, a3: text):
+	if {_a3} is {_a2}:
+		message "{@INFO} 같은 이름으로 바꿀 수 없습니다." to {_p}
+		stop
+	loop {vrcc.%{_u}%.channel::*}:
+		loop-value is {_a3}
+		message "{@INFO} 이미 있는 채널입니다." to {_p}
+		stop
+	if {vrcc.%{_u}%.%{_a2}%.core} is set:
+		add {vrcc.%{_u}%.%{_a2}%.core} to {_c::*}
+	if {vrcc.%{_u}%.%{_a2}%.serv::*} is set:
+		add {vrcc.%{_u}%.%{_a2}%.serv::*} to {_c::*}
+	loop {_c::*}:
+		loop getDependLocation(loop-value-1):
+			line 1 of block 0 up loop-value-2 is "{@KEY.SUCCESS}"
+			line 2 of block 0 up loop-value-2 is {_a2}
+			set line 2 of block 0 up loop-value-2 to {_a3}
+	set {vrcc.%{_u}%.%{_a3}%.core} to {vrcc.%{_u}%.%{_a2}%.core}
+	loop {vrcc.%{_u}%.%{_a2}%.serv::*}:
+		set {vrcc.%{_u}%.%{_a3}%.serv::%loop-index%} to loop-value
+	delete {vrcc.%{_u}%.%{_a2}%.core}
+	delete {vrcc.%{_u}%.%{_a2}%.serv::*}
+	remove {_a2} from {vrcc.%{_u}%.channel::*}
+	add {_a3} to {vrcc.%{_u}%.channel::*}
+	message "{@INFO} &c%{_a2}%&7채널에서 &c%{_a3}%&7채널로 변경되었습니다." to {_p}
+function runVRCCSwap(u: text, p: player, a2: text, a3: text, a4: text):
+	add {_a3} to {_a::*}
+	add {_a4} to {_a::*}
+	loop {_a::*}:
+		if "%loop-value%" is "{@CHANNAL.NAME}" or "{@CHANNAL.NAME.S}":
+			message "{@INFO} 채널상자는 상자이름을 바꿀 수 없습니다." to {_p}
+			stop
+		if "%loop-value%" contain " ":
+			message "{@INFO} 상자이름에는 띄어쓰기를 할 수 없습니다." to {_p}
+			stop
+	loop {_a::*}:
+		if {vrcc.%{_u}%.%{_a2}%.serv::%loop-value%} is set:
+			add loop-value to {_t::*}
+		else:
+			add loop-value to {_f::*}
+	if {_t::*} is not set:
+		message "{@INFO} 잘못된 상자이름입니다." to {_p}
+		stop
+	set {_l} to number of {_t::*}
+	if {_t::2} is not set:
+		set {_t::2} to {_f::1}
+	loop {_l} times:
+		set {_n.%loop-number%} to {vrcc.%{_u}%.%{_a2}%.serv::%{_t::%loop-number%}%}
+	loop {_l} times:
+		loop getDependLocation({_n.%loop-number%}):
+			line 1 of block 0 up loop-value-2 is "{@KEY.SUCCESS}"
+			line 2 of block 0 up loop-value-2 is {_a2}
+			line 3 of block 0 up loop-value-2 is {_t::%loop-number%}
+			line 4 of block 0 up loop-value-2 is "%{uuid::%{_u}%}%"
+			set line 3 of block 0 up loop-value-2 to {_t::%3 - loop-number%}
+		set {vrcc.%{_u}%.%{_a2}%.serv::%{_t::%3 - loop-number%}%} to {_n.%loop-number%}
+		message "{@INFO} %{_t::%loop-number%}%에서 %{_t::%3- loop-number%}%으로 이름을 바뀌었습니다." to {_p}
+	if {_l} is 1:
+		delete {vrcc.%{_u}%.%{_a2}%.serv::%{_t::1}%}
+function runVRCCRemoveConnetion(u: text, p: player, l: location, ch: text, n: text) :: location:
+	if line 3 of block 0 up {_l} is "{@CHANNAL.NAME}" or "{@CHANNAL.NAME.S}":
+		set {_r} to block 0 up {_l}
+		delete {vrcc.%{_u}%.%{_ch}%.core}
+		if {vrcc.%{_u}%.%{_ch}%.serv::*} is not set:
+			remove {_ch} from {vrcc.%{_u}%.channel::*}
+			message "{@INFO} &c%{_ch}%&7채널이 제거되었습니다." to {_p}
+			return {_r}
+		message "{@INFO} &c%{_ch}%&7채널이 비활성되었습니다." to {_p}
+		return {_r}
+	else:
+		line 3 of block 0 up {_l} is {_n}
+		set {_r} to block 0 up {_l}
+		delete {vrcc.%{_u}%.%{_ch}%.serv::%{_n}%}
+		message "{@INFO} &c%{_ch}%&7채널로부터 &f%{_n}%&7상자의 연결을 해제했습니다." to {_p}
+		if {vrcc.%{_u}%.%{_ch}%.serv::*} is not set:
+			{vrcc.%{_u}%.%{_ch}%.core} is not set
+			remove {_ch} from {vrcc.%{_u}%.channel::*}
+			message "{@INFO} &c%{_ch}%&7채널이 제거되었습니다." to {_p}
+		return {_r}
+function runVRCCRemove(u: text, p: player, a2: text, a3: text) :: location:
+	if {_a3} is "{@CHANNAL.NAME}" or "{@CHANNAL.NAME.S}":
+		{vrcc.%{_u}%.%{_a2}%.core} is not set
+		message "{@INFO} %{_a2}%채널은 이미 비활성되어 있습니다." to {_p}
+		stop
+	if number of {vrcc.%{_u}%.%{_a2}%.serv::*} is not set:
+		message "{@INFO} %{_a2}%채널에 등록된 상자가 없습니다." to {_p}
+		stop
+	loop {vrcc.%{_u}%.%{_a2}%.serv::*}:
+		loop-index is {_a3}
+		set {_e} to true
+	if {_e} is not set:
+		{_a3} is not "{@CHANNAL.NAME}" or "{@CHANNAL.NAME.S}"
+		message "{@INFO} %{_a3}%상자는 연결되지 않은 상자입니다." to {_p}
+		stop
+	if {_a3} is "{@CHANNAL.NAME}" or "{@CHANNAL.NAME.S}":
+		set {_c} to {vrcc.%{_u}%.%{_a2}%.core}
+	else:
+		set {_c} to {vrcc.%{_u}%.%{_a2}%.serv::%{_a3}%}
+	loop getDependLocation({_c}):
+		line 1 of block 0 up loop-value is "{@KEY.SUCCESS}"
+		line 2 of block 0 up loop-value is {_a2}
+		line 4 of block 0 up loop-value is "%{uuid::%{_u}%}%"
+		set {_s} to runVRCCRemoveConnetion({_u}, {_p}, loop-value, {_a2}, {_a3})
+		delete block 0 up {_s}
+		drop 1 of sign 0 up {_s}
+on load:
+	set {world::vrcc} to "&c&lV&rhone &c&lR&remote &c&lC&rhest &c&lC&ronnection ( v4.0 )"
+	set {vrcc::channel} to "list"
+	send "{@INFO} %{world::vrcc}% 로딩되었습니다. ( http://v_hone.blog.me/ )" to console
+on unload:
+	delete {world::vrcc}
+	delete {vrcc::*}
+on join:
+	if {world::vur} is not set:
+		if {uuid::%player's uuid%} is not set:
+			set {uuid::%player's uuid%} to player
+			set {user::%player%} to player's uuid
+			stop
+		if {uuid::%player's uuid%} is not player:
+			delete {user::%{uuid::%player's uuid%}%}
+			wait 1 tick
+			set {uuid::%player's uuid%} to player
+			set {user::%player%} to player's uuid
+			set {check::%player's uuid%} to true
+			stop
+	wait 2 tick
+	{check::%player's uuid%} is set
+	set {_player} to player's uuid
+	loop {vrcc.%{_player}%.channel::*}:
+		if {vrcc.%{_player}%.%loop-value-1%.core} is set:
+			add {vrcc.%{_player}%.%loop-value-1%.core} to {_core::*}
+		if {vrcc.%{_player}%.%loop-value-1%.serv::*} is set:
+			add {vrcc.%{_player}%.%loop-value-1%.serv::*} to {_core::*}
+	loop {_core::*}:
+		loop getDependLocation(loop-value-1):
+			line 1 of block 0 up loop-value-2 is "{@KEY.SUCCESS}"
+			set line 4 of block 0 up loop-value-2 to "%player%"
+command /vrccop [<text="">] [<text>] [<text>] [<text>]:
+	aliases: /공공상자
+	trigger:
+		if player is op:
+			set {_perm} to "admin"
+		else:
+			set {_perm} to "user"
+		if {_perm} is "user":
+			message "{@INFO} 명령권한이 없습니다."
+			stop
+		if arg-1 is not "help" or "명령어" or "list" or "목록" or "rename" or "채널변경" or "swap" or "이름변경" or "remove" or "제거":
+			message "{@INFO} 명령이 잘못되었습니다. ( 도움말 : ""/vrccop help"" or ""/공공상자 명령어"" )"
+			stop
+		if arg-1 is "help":
+			runVRCCHelpEng(player, "vrccop")
+			stop
+		if arg-1 is "명령어":
+			runVRCCHelpKor(player, "공공상자")
+			stop
+		set {_uuid} to "{@OPERATOR}"
+		if arg-1 is "list" or "목록":
+			runVRCCList({_uuid}, player)
+			stop
+		if arg-2 is not set:
+			message "{@INFO} 채널이 입력되지 않았습니다. ( %getVRCCListChannal({_uuid})% )"
+			stop
+		if getVRCCArgTwoError({_uuid}, player, arg-2) is set:
+			stop
+		if arg 1 is "swap" or "이름변경":
+			if arg-3 is not set:
+				message "{@INFO} 첫번째 상자의 이름 입력되지 않았습니다. ( %getVRCCListConnectioin({_uuid}, arg-2)% )"
+				stop
+			if arg-4 is not set:
+				message "{@INFO} 두번째 상자의 이름 입력되지 않았습니다. ( %getVRCCListConnectioin({_uuid}, arg-2)% )"
+				stop
+			runVRCCSwap({_uuid}, player, arg-2, arg-3, arg-4)
+			stop
+		if arg-1 is "rename" or "채널변경":
+			if arg-3 is not set:
+				message "{@INFO} 새로운 채널이름이 입력되지 않았습니다."
+				stop
+			if arg-4 is set:
+				message "{@INFO} 채널이름에는 띄어쓰기를 할 수 없습니다."
+				stop
+			runVRCCRename({_uuid}, player, arg-2, arg-3)
+			stop
+		if arg 1 is "remove" or "제거":
+			if arg-3 is not set:
+				message "{@INFO} %arg-2%채널로부터 해제할 상자가 입력되지 않았습니다. ( %getVRCCListConnectioin({_uuid}, arg-2)% )"
+				stop
+			runVRCCRemove({_uuid}, player, arg-2, arg-3)
+			stop
+command /vrcc [<text="">] [<text>] [<text>] [<text>]:
+	aliases: /상자
+	trigger:
+		if player is op:
+			set {_perm} to "admin"
+		else:
+			set {_perm} to "user"
+		if "{@CREATE}" is "admin":
+			{_perm} is "user"
+			message "{@INFO} 명령권한이 없습니다."
+			stop
+		if arg-1 is not "help" or "명령어" or "list" or "목록" or "rename" or "채널변경" or "swap" or "이름변경" or "remove" or "제거":
+			message "{@INFO} 명령이 잘못되었습니다. ( 도움말 : ""/vrcc help"" or ""/상자 명령어"" )"
+			stop
+		if arg-1 is "help":
+			runVRCCHelpEng(player, "vrcc")
+			stop
+		if arg-1 is "명령어":
+			runVRCCHelpKor(player, "상자")
+			stop
+		set {_uuid} to player's uuid
+		if arg-1 is "list" or "목록":
+			runVRCCList({_uuid}, player)
+			stop
+		if arg-2 is not set:
+			message "{@INFO} 채널이 입력되지 않았습니다. ( %getVRCCListChannal({_uuid})% )"
+			stop
+		if getVRCCArgTwoError({_uuid}, player, arg-2) is set:
+			stop
+		if arg 1 is "swap" or "이름변경":
+			if arg-3 is not set:
+				message "{@INFO} 첫번째 상자의 이름 입력되지 않았습니다. ( %getVRCCListConnectioin({_uuid}, arg-2)% )"
+				stop
+			if arg-4 is not set:
+				message "{@INFO} 두번째 상자의 이름 입력되지 않았습니다. ( %getVRCCListConnectioin({_uuid}, arg-2)% )"
+				stop
+			runVRCCSwap({_uuid}, player, arg-2, arg-3, arg-4)
+			stop
+		if arg-1 is "rename" or "채널변경":
+			if arg-3 is not set:
+				message "{@INFO} 새로운 채널이름이 입력되지 않았습니다."
+				stop
+			if arg-4 is set:
+				message "{@INFO} 채널이름에는 띄어쓰기를 할 수 없습니다."
+				stop
+			runVRCCRename({_uuid}, player, arg-2, arg-3)
+			stop
+		if arg 1 is "remove" or "제거":
+			if arg-3 is not set:
+				message "{@INFO} %arg-2%채널로부터 해제할 상자가 입력되지 않았습니다. ( %getVRCCListConnectioin({_uuid}, arg-2)% )"
+				stop
+			runVRCCRemove({_uuid}, player, arg-2, arg-3)
+			stop
+on sign change:
+	event-block is wall_sign
+	line 1 is "{@KEY.CODE}" or "{@KEY.WORD}" or "{@KEY.SUCCESS}"
+	if player is op:
+		set {_perm} to "admin"
+	else:
+		set {_perm} to "user"
+	if "{@CREATE}" is "admin":
+		{_perm} is "user"
+		runSignText("{@FAIL}", "연결권한이", "없습니다", "", event-location)
+		message "{@INFO} 연결권한이 없습니다."
+		stop
+	set {_chest} to getAdjoinLocation(event-location)
+	if block 0 up {_chest} is not chest:
+		runSignText("{@FAIL}", "상자에 표지판을", "설치해야 합니다", "", event-location)
+		message "{@INFO} 상자에 표지판을 설치해야 합니다."
+		stop
+	if getDoubleChest({_chest}) is set:
+		runSignText("{@FAIL}", "큰 상자는 연결", "할 수 없습니다", "", event-location)
+		message "{@INFO} 큰 상자는 연결 할 수 없습니다."
+		stop
+	loop getDependLocation({_chest}):
+		line 1 of block 0 up loop-value is "{@KEY.SUCCESS}"
+		runSignText("{@FAIL}", "이미 연결되어", "있는 상자입니다", "", event-location)
+		message "{@INFO} 이미 연결되어 있는 상자입니다. ( %line 2 of block 0 up loop-value%채널 )"
+		stop
+	if line 2 is "":
+		runSignText("{@FAIL}", "두번째 줄에 연결할", "채널을 써야 합니다.", "", event-location)
+		message "{@INFO} 두번째 줄에 연결할 채널을 써야 합니다."
+		stop
+	if line 2 contain " ":
+		runSignText("{@FAIL}", "채널이름에 빈칸이", "있으면 안됩니다", "", event-location)
+		message "{@INFO} 채널이름에 빈칸이 있으면 안됩니다."
+		stop
+	if player is op:
+		if line 4 is "{@PUBLIC.CODE}" or "{@PUBLIC.WORD}" or "{@PUBLIC.SUCCESS}":
+			set {_player} to "{@OPERATOR}"
+		else:
+			set {_player} to player's uuid
+	else:
+		set {_player} to player's uuid
+	set {_line2} to getLowerCase(line 2)
+	set {_line3} to getLowerCase(line 3)
+	loop {vrcc.%{_player}%.channel::*}:
+		loop-value is {_line2}
+		set {_exist.channel} to true
+		stop loop
+	if number of {vrcc.%{_player}%.channel::*} >= {@CHANNAL}:
+		{_exist.channel} is not set
+		runSignText("{@FAIL}", "채널은 {@CHANNAL}개까지", "만들 수 있습니다", "", event-location)
+		message "{@INFO} 채널은 {@CHANNAL}개까지 만들 수 있습니다. ( %getVRCCListChannal({_player})% )"
+		stop
+	if {_line3} is "{@CHANNAL.NAME}" or "{@CHANNAL.NAME.S}":
+		{vrcc.%{_player}%.%{_line2}%.core} is set
+		runSignText("{@FAIL}", "이미 있는", "채널입니다", "", event-location)
+		message "{@INFO} 이미 있는 채널입니다. ( %getVRCCListChannal({_player})% )"
+		stop
+	if {_line3} contain " ":
+		runSignText("{@FAIL}", "이름에 빈칸이", "있으면 안됩니다", "", event-location)
+		message "{@INFO} 이름에 빈칸이 있으면 안됩니다."
+		stop
+	if {vrcc.%{_player}%.%{_line2}%.core} is set:
+		number of {vrcc.%{_player}%.%{_line2}%.serv::*} >= {@SERV}
+		runSignText("{@FAIL}", "연결은 {@SERV}개까지", "할 수 있습니다", "", event-location)
+		message "{@INFO} 연결은 {@SERV}개까지 할 수 있습니다. ( %getVRCCListConnectioin({_player}, {_line2})% )"
+		stop
+	loop {vrcc.%{_player}%.%{_line2}%.serv::*}:
+		loop-index is {_line3}
+		runSignText("{@FAIL}", "이미 있는", "이름입니다", "", event-location)
+		message "{@INFO} 이미 있는 이름입니다. ( %getVRCCListConnectioin({_player}, {_line2})% )"
+		stop
+	if {vrcc.%{_player}%.%{_line2}%.core} is set:
+		if {_line3} is "":
+			add {_chest} to {vrcc.%{_player}%.%{_line2}%.serv::*}
+			loop {vrcc.%{_player}%.%{_line2}%.serv::*}:
+				loop-value is {_chest}
+				set {_line3} to "%loop-index%"
+		else:
+			set {vrcc.%{_player}%.%{_line2}%.serv::%{_line3}%} to {_chest}
+		if {_player} is "{@OPERATOR}":
+			set {_line4} to "{@PUBLIC.SUCCESS}"
+		else:
+			set {_line4} to "%{uuid::%{_player}%}%"
+		runSignText("{@KEY.SUCCESS}", {_line2}, {_line3}, {_line4}, event-location)
+		message "{@INFO} &c%{_line2}%&7채널에 연결되었습니다."
+		stop
+	else:
+		set {vrcc.%{_player}%.%{_line2}%.core} to {_chest}
+		if {_player} is "{@OPERATOR}":
+			set {_line4} to "{@PUBLIC.SUCCESS}"
+		else:
+			set {_line4} to "%{uuid::%{_player}%}%"
+		runSignText("{@KEY.SUCCESS}", {_line2}, "{@CHANNAL.NAME}", {_line4}, event-location)
+		if {_exist.channel} is not set:
+			add {_line2} to {vrcc.%{_player}%.channel::*}
+			message "{@INFO} &c%{_line2}%&7채널이 개설되었습니다."
+		else:
+			message "{@INFO} &c%{_line2}%&7채널이 재활성되었습니다."
+		stop
+on rightclick on wall_sign:
+	line 1 is "{@KEY.SUCCESS}"
+	cancel event
+	if player is op:
+		set {_perm} to "admin"
+	else:
+		set {_perm} to "user"
+	if "{@USE}" is "admin":
+		{_perm} is "user"
+		message "{@INFO} 사용권한이 없습니다."
+		stop
+	if line 4 is "{@PUBLIC.SUCCESS}":
+		set {_uuid} to "{@OPERATOR}"
+	else:
+		player is op:
+			set {_uuid} to {user::%line 4%}
+		else:
+			set {_uuid} to player's uuid
+	if line 4 is not "%{uuid::%{_uuid}%}%":
+		line 4 is not "{@PUBLIC.SUCCESS}"
+		message "{@INFO} 다른유저의 상자는 사용할 수 없습니다."
+		stop
+	if {vrcc.%{_uuid}%.%line 2%.core} is not set:
+		message "{@INFO} %line 2%채널이 비활성되어 있습니다."
+		stop
+	open inventory of block 0 up {vrcc.%{_uuid}%.%line 2%.core} to player
+	stop
+on rightclick on chest:
+	loop getDependLocation(event-location):
+		line 1 of block 0 up loop-value is "{@KEY.SUCCESS}"
+		cancel event
+		if player is op:
+			set {_perm} to "admin"
+		else:
+			set {_perm} to "user"
+		if "{@USE}" is "admin":
+			{_perm} is "user"
+			message "{@INFO} 사용권한이 없습니다."
+			stop
+		if line 4 of block 0 up loop-value is "{@PUBLIC.SUCCESS}":
+			set {_uuid} to "{@OPERATOR}"
+		else:
+			player is op:
+				set {_uuid} to {user::%line 4 of block 0 up loop-value%}
+			else:
+				set {_uuid} to player's uuid
+		if line 4 of block 0 up loop-value is not "%{uuid::%{_uuid}%}%":
+			line 4 is not "{@PUBLIC.SUCCESS}"
+			message "{@INFO} 다른유저의 상자는 사용할 수 없습니다."
+			stop
+		if {vrcc.%{_uuid}%.%line 2 of block 0 up loop-value%.core} is not set:
+			message "{@INFO} %line 2 of block 0 up loop-value%채널이 비활성되어 있습니다."
+			stop
+		open inventory of block 0 up {vrcc.%{_uuid}%.%line 2 of block 0 up loop-value%.core} to player
+		stop
+on break of wall_sign:
+	line 1 is "{@KEY.SUCCESS}"
+	if player is op:
+		set {_perm} to "admin"
+	else:
+		set {_perm} to "user"
+	if "{@CREATE}" is "admin":
+		{_perm} is "user"
+		cancel event
+		message "{@INFO} 파괴권한이 없습니다."
+		stop
+	if line 4 is "{@PUBLIC.SUCCESS}":
+		{_perm} is "user"
+		cancel event
+		message "{@INFO} 공공시설은 파괴할 수 없습니다."
+		stop
+	if line 4 is "{@PUBLIC.SUCCESS}":
+		set {_uuid} to "{@OPERATOR}"
+	else:
+		player is op:
+			set {_uuid} to {user::%line 4%}
+		else:
+			set {_uuid} to player's uuid
+	if line 4 is not "%{uuid::%{_uuid}%}%":
+		player is not op
+		cancel event
+		message "{@INFO} 다른유저의 상자는 연결을 해제할 수 없습니다."
+		stop
+	runVRCCRemoveConnetion({_uuid}, player, event-location, line 2 , line 3)
+	stop
+on break of chest:
+	loop getDependLocation(event-location):
+		line 1 of block 0 up loop-value is "{@KEY.SUCCESS}"
+		if player is op:
+			set {_perm} to "admin"
+		else:
+			set {_perm} to "user"
+		if "{@CREATE}" is "admin":
+			{_perm} is "user"
+			cancel event
+			message "{@INFO} 파괴권한이 없습니다."
+			stop
+		if line 4 of block 0 up loop-value is "{@PUBLIC.SUCCESS}":
+			{_perm} is "user"
+			cancel event
+			message "{@INFO} 공공시설은 파괴할 수 없습니다."
+			stop
+		if line 4 of block 0 up loop-value is "{@PUBLIC.SUCCESS}":
+			set {_uuid} to "{@OPERATOR}"
+		else:
+			player is op:
+				set {_uuid} to {user::%line 4 of block 0 up loop-value%}
+			else:
+				set {_uuid} to player's uuid
+		if line 4 of block 0 up loop-value is not "%{uuid::%{_uuid}%}%":
+			{_perm} is "user"
+			cancel event
+			message "{@INFO} 다른유저의 상자는 연결을 해제할 수 없습니다."
+			stop
+		runVRCCRemoveConnetion({_uuid}, player, loop-value, line 2 of block 0 up loop-value, line 3 of block 0 up loop-value)
+		stop
+on place of chest:
+	loop getDependLocation(getDoubleChest(event-location)):
+		line 1 of block 0 up loop-value is "{@KEY.SUCCESS}"
+		cancel event
+		stop

@@ -1,0 +1,29 @@
+lastAccountName: sibal
+timestamps:
+  login: 1585637617628
+  lastteleport: 1585639990358
+  logout: 1585488751353
+ipAddress: 119.204.208.224
+lastlocation:
+  world: world
+  x: 1188.3747123325668
+  y: 64.0
+  z: 1283.839059941778
+  yaw: 309.85156
+  pitch: 40.903316
+homes:
+  home:
+    world: world
+    x: 1128.649913106864
+    y: 64.0
+    z: 1307.827899615826
+    yaw: 25.048157
+    pitch: 14.364594
+logoutlocation:
+  world: world
+  x: 1079.6318373048284
+  y: 11.0
+  z: 1016.199397544834
+  yaw: 136.10582
+  pitch: 32.864586
+afk: false

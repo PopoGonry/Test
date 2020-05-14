@@ -1,0 +1,62 @@
+Effects:
+	EffAddHoloLine:
+		ID: EffAddHoloLine
+		Patterns:
+			set lines of holo[gram] %string% to %strings%
+	EffCreateFollowGram:
+		ID: EffCreateFollowGram
+		Patterns:
+			create [a ]new following holo[gram] (to|that) follow[s] %entity% with [text] %strings%
+	EffCreateHologram:
+		ID: EffCreateHologram
+		Patterns:
+			create [a ]new holo[gram] named %string%
+	EffDeleteHolo:
+		ID: EffDeleteHolo
+		Patterns:
+			delete holo[gram] %string%
+	EffDeleteHoloLine:
+		ID: EffDeleteHoloLine
+		Patterns:
+			(remove|clear|delete) lines of holo[gram] %string%
+	EffHoloFollow:
+		ID: EffHoloFollow
+		Patterns:
+			make holo[gram] %string% follow %entity%
+	EffHoloStart:
+		ID: EffHoloStart
+		Patterns:
+			start holo[gram] %string%
+	EffHoloStop:
+		ID: EffHoloStop
+		Patterns:
+			stop holo[gram] %string%
+	EffMoveHolo:
+		ID: EffMoveHolo
+		Patterns:
+			move holo[gram] %string% to %location%
+	EffSetHoloLine:
+		ID: EffSetHoloLine
+		Patterns:
+			set holo[gram] line %integer% of holo[gram] %string% to %string%
+	EffSetHoloType:
+		ID: EffSetHoloType
+		Patterns:
+			set holo[gram] type to (0¦wither skull[s]|1¦armor stand[s])
+Expressions:
+	ExprBlockDrops:
+		ID: ExprBlockDrops
+		Return type: Item / Material
+		Changers:
+			unknown
+		Patterns:
+			[the] block drops
+	ExprFreeze:
+		ID: ExprFreeze
+		Return type: Boolean
+		Changers:
+			set
+			remove
+		Patterns:
+			[the] freeze state of %player%
+			%player%'[s] freeze state

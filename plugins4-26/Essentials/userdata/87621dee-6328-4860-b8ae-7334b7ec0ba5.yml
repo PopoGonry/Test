@@ -1,0 +1,21 @@
+lastAccountName: Lek27
+timestamps:
+  login: 1586935434656
+  lastteleport: 1586794059882
+  logout: 1586880274492
+ipAddress: 192.168.55.147
+lastlocation:
+  world: world
+  x: -558.1212417531202
+  y: 68.0
+  z: 371.0235085497601
+  yaw: -312.1081
+  pitch: 28.037798
+afk: false
+logoutlocation:
+  world: world
+  x: -586.1341163555335
+  y: 93.0
+  z: 316.0653580031069
+  yaw: -32.15265
+  pitch: 19.043282

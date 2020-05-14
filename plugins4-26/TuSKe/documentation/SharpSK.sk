@@ -1,0 +1,250 @@
+Conditions:
+	CondEventCancelled:
+		ID: CondEventCancelled
+		Patterns:
+			[the] event (is|was) cancelled
+	CondEventNotCancelled:
+		ID: CondEventNotCancelled
+		Patterns:
+			[the] event (is|was) not cancelled
+	CondNotPlayerStandingOn:
+		ID: CondNotPlayerStandingOn
+		Patterns:
+			%entity% is not standing on %itemstack%
+	CondNotleashed:
+		ID: CondNotleashed
+		Patterns:
+			%entity% is not leashed
+	CondPlayerIsStandingOn:
+		ID: CondPlayerIsStandingOn
+		Patterns:
+			%entity% is standing on %itemstack%
+	CondTimerActive:
+		ID: CondTimerActive
+		Patterns:
+			timer %string% is active
+	CondTimerNotActive:
+		ID: CondTimerNotActive
+		Patterns:
+			timer %string% is not active
+	Condisleashed:
+		ID: Condisleashed
+		Patterns:
+			%entity% is leashed
+Effects:
+	EffAddMember:
+		ID: EffAddMember
+		Patterns:
+			[sharpsk] [worldguard] add member[s] %players/offlineplayers/strings% [(-1¦by name|1¦by uuid)] to region %string% in [world] %world%
+	EffAddOwner:
+		ID: EffAddOwner
+		Patterns:
+			[sharpsk] [worldguard] add owner[s] %players/offlineplayers/strings% [(-1¦by name|1¦by uuid)] to region %string% in [world] %world%
+	EffBrewerInv:
+		ID: EffBrewerInv
+		Patterns:
+			open brewer inventory to %player% [with name %-string%]
+	EffCreateRegion:
+		ID: EffCreateRegion
+		Patterns:
+			[sharpsk] [worldguard] create region %string% between %location% and %location% in [world] %world%
+	EffDeleteRegion:
+		ID: EffDeleteRegion
+		Patterns:
+			[sharpsk] [worldguard] (delete|remove) region %string% (in|from) [world] %world%
+	EffDisablePlugin:
+		ID: EffDisablePlugin
+		Patterns:
+			disable plugin %string%
+	EffEnablePlugin:
+		ID: EffEnablePlugin
+		Patterns:
+			enable plugin %string%
+	EffHopperInv:
+		ID: EffHopperInv
+		Patterns:
+			open hopper inventory to %player% [with name %-string%]
+	EffLoadPlugin:
+		ID: EffLoadPlugin
+		Patterns:
+			load plugin %string%
+	EffPasteSchematic:
+		ID: EffPasteSchematic
+		Patterns:
+			[sharpsk] [worldedit] paste schematic %string% at %location% [exclude air %-boolean%] [rotate [by] %-number% [degrees]]
+	EffRemoveMember:
+		ID: EffRemoveMember
+		Patterns:
+			[sharpsk] [worldguard] remove member[s] %players/offlineplayers/strings% [(-1¦by name|1¦by uuid)] from region %string% in [world] %world%
+	EffRemoveOwner:
+		ID: EffRemoveOwner
+		Patterns:
+			[sharpsk] [worldguard] remove owner %players/offlineplayers/strings% [(-1¦by name|1¦by uuid)] from region %string% in [world] %world%
+	EffSaveClipToSchematic:
+		ID: EffSaveClipToSchematic
+		Patterns:
+			[sharpsk] [worldedit] save clipboard of %player% (to|as) [schem[atic]] %string%
+	EffSaveSelectionToClipboard:
+		ID: EffSaveSelectionToClipboard
+		Patterns:
+			[sharpsk] [worldedit] save [selection] p[oint][ ]1 %location% p[oint][ ]2 %location% [with origin %-location%] to clip[board] of [player] %player%
+	EffSaveWorlds:
+		ID: EffSaveWorlds
+		Patterns:
+			save %worlds%
+	EffSetBlocks:
+		ID: EffSetBlocks
+		Patterns:
+			[sharpsk] [worldguard] (set [all] blocks in|fill) region %string% in [world] %world% (to|with) %itemstack%
+	EffTimerCreate:
+		ID: EffTimerCreate
+		Patterns:
+			create (-1¦timer|1¦timer in ticks) %string% for %timespan% [keep active %-boolean%] [[with] (interval|delay) %-timespan% [between ticks]]
+	EffTimerPause:
+		ID: EffTimerPause
+		Patterns:
+			pause timer %string%
+	EffTimerResume:
+		ID: EffTimerResume
+		Patterns:
+			resume timer %string%
+	EffTimerStop:
+		ID: EffTimerStop
+		Patterns:
+			stop timer %string%
+Expressions:
+	ExprAllFlagsOfRegion:
+		ID: ExprAllFlagsOfRegion
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [worldguard] [all] flags of region %string% in [world] %world%
+	ExprAllMembers:
+		ID: ExprAllMembers
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [worldguard] [all] members of region %string% in [world] %world%
+	ExprAllOwners:
+		ID: ExprAllOwners
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [worldguard] [all] owners of region %string% in [world] %world%
+	ExprAllRegionsInWorld:
+		ID: ExprAllRegionsInWorld
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [all] [worldguard] regions in %world%
+	ExprAllTimers:
+		ID: ExprAllTimers
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[(the|all)] [of] [the] [running] timers
+	ExprEventAnvilCost:
+		ID: ExprEventAnvilCost
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			(anvil[]cost|event-[anvil]cost)
+	ExprEventTimeLeft:
+		ID: ExprEventTimeLeft
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			event-time[left]
+	ExprEventWorld:
+		ID: ExprEventWorld
+		Return type: World
+		Changers:
+			none
+		Patterns:
+			[the] [(-1¦(past|former)|1¦future)] [event-]world
+	ExprEventWorldLoc:
+		ID: ExprEventWorldLoc
+		Return type: Location
+		Changers:
+			none
+		Patterns:
+			[the] [(-1¦(past|former)|1¦future)] event-location
+	ExprFlagValueOfFlagOfRegion:
+		ID: ExprFlagValueOfFlagOfRegion
+		Return type: Text
+		Changers:
+			set
+		Patterns:
+			[sharpsk] value of flag %string% of [worldguard] region %string% in [world] %world%
+	ExprGetPoint1:
+		ID: ExprGetPoint1
+		Return type: Location
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [worldguard] (point|pos[ition])[ ] 1 of region %string% in [world] %world%
+	ExprGetPoint2:
+		ID: ExprGetPoint2
+		Return type: Location
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [worldguard] (point|pos[ition])[ ] 2 of region %string% in [world] %world%
+	ExprGlowingStateEntity:
+		ID: ExprGlowingStateEntity
+		Return type: Boolean
+		Changers:
+			set
+		Patterns:
+			[sharpsk] glowing state of %entity%
+	ExprInvType:
+		ID: ExprInvType
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			%player%['s] [current] inventory type
+	ExprOffhandItem:
+		ID: ExprOffhandItem
+		Return type: Item / Material
+		Changers:
+			set
+		Patterns:
+			[sharpsk] [item in] %player%'s offhand
+	ExprPhaseOf:
+		ID: ExprPhaseOf
+		Return type: phase
+		Changers:
+			set
+		Patterns:
+			phase of [ender]dragon in %world%
+	ExprRegionAt:
+		ID: ExprRegionAt
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			sharpsk [worldguard] region at %location%
+	ExprRegionsOfPlayer:
+		ID: ExprRegionsOfPlayer
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[sharpsk] [all] regions of [player] %offlineplayer% [in %-world%]
+	ExprTimerTime:
+		ID: ExprTimerTime
+		Return type: integer
+		Changers:
+			add
+			set
+			remove
+		Patterns:
+			time of timer %string%

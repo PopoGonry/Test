@@ -1,0 +1,203 @@
+# Citizens NPC Storage
+
+last-created-npc-id: 10
+npc:
+  '1':
+    metadata:
+      player-skin-textures: eyJ0aW1lc3RhbXAiOjE1ODU0NzYwNTM0MTEsInByb2ZpbGVJZCI6ImI5N2M1MjA2ZTIyODQ4NDQ5NThjZDk1ZmVkMjNmZDc3IiwicHJvZmlsZU5hbWUiOiJQb3BvX0dvbnJ5Iiwic2lnbmF0dXJlUmVxdWlyZWQiOnRydWUsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9iNDRjMTdkMzRjZjc4YTdhODY1NThlYTUzMzVmYmEzYWJkZDk3YTgwN2UxZjJmZWI3NTVmMzVhMTUyZDQ1MzIxIn19fQ==
+      cached-skin-uuid-name: popo_gonry
+      cached-skin-uuid: b97c5206-e228-4844-958c-d95fed23fd77
+      player-skin-name: popo_gonry
+      nameplate-visible: 'true'
+      player-skin-signature: DBTwruIvXzy8Zs0ZpYj1c1r6RxOwtVfRWtkbGHjIlBNKVQwNBFcwQm7RgDEA6P8VmeBUtMqCXqcijjqROZ6NQInDRTzjMQRbyfzqwd1nlhu65Z0cBrbsOBoyM2ESzArotAiXhG3JUUgROl/U9Tt5Fq0Rs3+9jjzcSJV9BXap1rin036LZI9cpNHfTJ9FCS57b3GNE33gwWJktCvuQPJmi5+BahdgYZM2wJpJqZnxGmJpBrABPSKYjsIf8hEAOqHCLPSoUBnMWL+22szySV/HibfiTP+DgJyRe56mK0ZpJ2/sAVeoHOFYwX2BhrQH92sJQrnJLD5BdevuB6HZeiiETqNpcoViQgXBfo+R8Vp+fMkRsXCcQPuW+s+iHeBajkZMhdfG34kYeYzRC974bjfSmZgCnxkIQztUG7dCCVdPmgTDWJ+5xehJ+VBk5fxE9bvXAZtfFKR9rlYUIIOkzeD9iKlG7M5VuyiUnFqSkmYvhJ7WVkZO7pjumLrSdUKyc++MENUtL5kRVqSkEZZw/tONeleo8xUFDEuZ27INfre07nynEH2IeY0MB+8g06Gddrpffv3RqvWQQkDyyOnvQsHFjZ9z9X5FkGYuntmpyPalWzr87ZNMQr69A0o5cX2jqes2AfjkUjQwhFu7xlUkWshI4gdh8sjDuUWDMOA19sTr/ag=
+    name: §6양치기 개
+    uuid: 325b9c57-fcee-431e-882f-41b6aebdd832
+    traits:
+      lookclose:
+        enabled: true
+        range: '5.0'
+        realisticlooking: false
+      gravity:
+        enabled: false
+      type: WOLF
+      spawned: true
+      location:
+        world: world
+        x: '1125.3894'
+        y: '63.0'
+        z: '1314.3903'
+        yaw: '72.06585693359375'
+        pitch: '0.0'
+      owner:
+        owner: Popo_Gonry
+        uuid: 2343bebe-aa36-3ba8-b765-58530ae1646b
+    traitnames: equipment,location,spawned,type,owner,lookclose,mounttrait,inventory
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '10':
+    metadata:
+      player-skin-textures: eyJ0aW1lc3RhbXAiOjE1ODc4MzExNTkzMDMsInByb2ZpbGVJZCI6IjkzOGU5NjBkNTBhYjQ4OWI5YjJhYWYzNzUxOTQyOTg5IiwicHJvZmlsZU5hbWUiOiJBcmkiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzU4ODVkNzczZDNhZWNhMDkxNjU5YTk3ZGE4YWJlYjA0YzM3ZjMxNTE3NmRiYzI0ZDBjN2MzZDA5OGZmYWMzNzgifX19
+      cached-skin-uuid-name: ari
+      cached-skin-uuid: 938e960d-50ab-489b-9b2a-af3751942989
+      player-skin-name: ari
+      player-skin-signature: LC9UpqVSIyvKEwna8E5HWcIjP7qE5M2kUy3J0DSuw/rS0wnKT3xV5k+ZwcaSzlIfYCVoh+Iodw3fQ+/dfnO0kjUnBtCS7Xm+Y3SGXZX7NJt4WPptlKNfOECVmPzV4F95j6+RSJ1uiab5gGavvSruLux+bX5K8QsaicsLipHhi/Bj5jCjezYukvmWWHe+wKWiy3BXiwL7f4NWqSpy3RB7mvialgUCP6QoYSk+QjNmmMOUQqtToJVGAjiMBKKPdT8G8K8RCP/KXY+Uvny6jkocvVjExMDx6g6TrgWP9j0ExfaQ2VWa0xUYDBP/JTJFgZhvTunl8avWHZHERb5JdnpWekCS+1s4hs4kXn9M8TgXIOBs7/Zqb4WT7bjxkfOKbZp2++tKx9lJXdOrdHeOqmWWyEIxHQ7JyLCsbBl1UAOvelKeG80sge0Q0vzfFREYbijkc7TO7CIFx/nxgup0NrZs9goJcYj+syjvXmz4afIWT4zn1Rbcp/LV84yimmGN/m6Hx17f6/pWmwqd1xVe6fKA0gKLNVoynh68DcuU4G+w9pqmBPCrsBKRaap2b0aAVcgvFT3Ln96oO31n9uk0N8OU+mTmrKdi9eTqyzvnPvuoGqGkxEESKR5QYzOxReGpW8aedIzHRwLalZuVLO0wUWWIduLfqg/zAQSuAO4ox5mVqmU=
+    name: §6광물팔기
+    uuid: 2e73156c-7249-453b-8b15-da9638f71b78
+    traits:
+      lookclose:
+        enabled: true
+        range: '5.0'
+        realisticlooking: false
+      spawned: true
+      gravity:
+        enabled: false
+      type: PLAYER
+      location:
+        world: world
+        x: '1760.624'
+        y: '67.0'
+        z: '1213.5938'
+        yaw: '-178.36386108398438'
+        pitch: '0.0'
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: equipment,location,spawned,type,owner,lookclose,mounttrait,inventory
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '9':
+    metadata:
+      player-skin-textures: eyJ0aW1lc3RhbXAiOjE1ODc4MzExNTkzMDMsInByb2ZpbGVJZCI6IjkzOGU5NjBkNTBhYjQ4OWI5YjJhYWYzNzUxOTQyOTg5IiwicHJvZmlsZU5hbWUiOiJBcmkiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzU4ODVkNzczZDNhZWNhMDkxNjU5YTk3ZGE4YWJlYjA0YzM3ZjMxNTE3NmRiYzI0ZDBjN2MzZDA5OGZmYWMzNzgifX19
+      cached-skin-uuid-name: ari
+      cached-skin-uuid: 938e960d-50ab-489b-9b2a-af3751942989
+      player-skin-name: ari
+      player-skin-signature: LC9UpqVSIyvKEwna8E5HWcIjP7qE5M2kUy3J0DSuw/rS0wnKT3xV5k+ZwcaSzlIfYCVoh+Iodw3fQ+/dfnO0kjUnBtCS7Xm+Y3SGXZX7NJt4WPptlKNfOECVmPzV4F95j6+RSJ1uiab5gGavvSruLux+bX5K8QsaicsLipHhi/Bj5jCjezYukvmWWHe+wKWiy3BXiwL7f4NWqSpy3RB7mvialgUCP6QoYSk+QjNmmMOUQqtToJVGAjiMBKKPdT8G8K8RCP/KXY+Uvny6jkocvVjExMDx6g6TrgWP9j0ExfaQ2VWa0xUYDBP/JTJFgZhvTunl8avWHZHERb5JdnpWekCS+1s4hs4kXn9M8TgXIOBs7/Zqb4WT7bjxkfOKbZp2++tKx9lJXdOrdHeOqmWWyEIxHQ7JyLCsbBl1UAOvelKeG80sge0Q0vzfFREYbijkc7TO7CIFx/nxgup0NrZs9goJcYj+syjvXmz4afIWT4zn1Rbcp/LV84yimmGN/m6Hx17f6/pWmwqd1xVe6fKA0gKLNVoynh68DcuU4G+w9pqmBPCrsBKRaap2b0aAVcgvFT3Ln96oO31n9uk0N8OU+mTmrKdi9eTqyzvnPvuoGqGkxEESKR5QYzOxReGpW8aedIzHRwLalZuVLO0wUWWIduLfqg/zAQSuAO4ox5mVqmU=
+    name: §6광물사기
+    uuid: 737f90b1-f6f4-400b-afb5-3f4d6d76ddba
+    traits:
+      lookclose:
+        enabled: true
+        range: '5.0'
+        realisticlooking: false
+      spawned: true
+      gravity:
+        enabled: false
+      type: PLAYER
+      location:
+        world: world
+        x: '1763.8451'
+        y: '67.0'
+        z: '1213.5932'
+        yaw: '150.96728515625'
+        pitch: '0.0'
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: equipment,location,spawned,type,owner,lookclose,mounttrait,inventory
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '8':
+    metadata:
+      player-skin-textures: eyJ0aW1lc3RhbXAiOjE1ODc4MzExNTkzMDMsInByb2ZpbGVJZCI6IjkzOGU5NjBkNTBhYjQ4OWI5YjJhYWYzNzUxOTQyOTg5IiwicHJvZmlsZU5hbWUiOiJBcmkiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzU4ODVkNzczZDNhZWNhMDkxNjU5YTk3ZGE4YWJlYjA0YzM3ZjMxNTE3NmRiYzI0ZDBjN2MzZDA5OGZmYWMzNzgifX19
+      cached-skin-uuid-name: ari
+      cached-skin-uuid: 938e960d-50ab-489b-9b2a-af3751942989
+      player-skin-name: ari
+      player-skin-signature: LC9UpqVSIyvKEwna8E5HWcIjP7qE5M2kUy3J0DSuw/rS0wnKT3xV5k+ZwcaSzlIfYCVoh+Iodw3fQ+/dfnO0kjUnBtCS7Xm+Y3SGXZX7NJt4WPptlKNfOECVmPzV4F95j6+RSJ1uiab5gGavvSruLux+bX5K8QsaicsLipHhi/Bj5jCjezYukvmWWHe+wKWiy3BXiwL7f4NWqSpy3RB7mvialgUCP6QoYSk+QjNmmMOUQqtToJVGAjiMBKKPdT8G8K8RCP/KXY+Uvny6jkocvVjExMDx6g6TrgWP9j0ExfaQ2VWa0xUYDBP/JTJFgZhvTunl8avWHZHERb5JdnpWekCS+1s4hs4kXn9M8TgXIOBs7/Zqb4WT7bjxkfOKbZp2++tKx9lJXdOrdHeOqmWWyEIxHQ7JyLCsbBl1UAOvelKeG80sge0Q0vzfFREYbijkc7TO7CIFx/nxgup0NrZs9goJcYj+syjvXmz4afIWT4zn1Rbcp/LV84yimmGN/m6Hx17f6/pWmwqd1xVe6fKA0gKLNVoynh68DcuU4G+w9pqmBPCrsBKRaap2b0aAVcgvFT3Ln96oO31n9uk0N8OU+mTmrKdi9eTqyzvnPvuoGqGkxEESKR5QYzOxReGpW8aedIzHRwLalZuVLO0wUWWIduLfqg/zAQSuAO4ox5mVqmU=
+    name: §6광물사기
+    uuid: fc95e6d4-efd8-42fb-b1f5-ce418c281dc5
+    traits:
+      lookclose:
+        enabled: true
+        range: '5.0'
+        realisticlooking: false
+      spawned: true
+      gravity:
+        enabled: false
+      type: PLAYER
+      location:
+        world: world
+        x: '1765.5317'
+        y: '67.0'
+        z: '1213.4879'
+        yaw: '138.73629760742188'
+        pitch: '0.0'
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: equipment,location,spawned,type,owner,lookclose,mounttrait,inventory
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '6':
+    metadata:
+      player-skin-textures: eyJ0aW1lc3RhbXAiOjE1ODc4MzExNTkzMDMsInByb2ZpbGVJZCI6IjkzOGU5NjBkNTBhYjQ4OWI5YjJhYWYzNzUxOTQyOTg5IiwicHJvZmlsZU5hbWUiOiJBcmkiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzU4ODVkNzczZDNhZWNhMDkxNjU5YTk3ZGE4YWJlYjA0YzM3ZjMxNTE3NmRiYzI0ZDBjN2MzZDA5OGZmYWMzNzgifX19
+      cached-skin-uuid-name: ari
+      cached-skin-uuid: 938e960d-50ab-489b-9b2a-af3751942989
+      player-skin-name: ari
+      player-skin-signature: LC9UpqVSIyvKEwna8E5HWcIjP7qE5M2kUy3J0DSuw/rS0wnKT3xV5k+ZwcaSzlIfYCVoh+Iodw3fQ+/dfnO0kjUnBtCS7Xm+Y3SGXZX7NJt4WPptlKNfOECVmPzV4F95j6+RSJ1uiab5gGavvSruLux+bX5K8QsaicsLipHhi/Bj5jCjezYukvmWWHe+wKWiy3BXiwL7f4NWqSpy3RB7mvialgUCP6QoYSk+QjNmmMOUQqtToJVGAjiMBKKPdT8G8K8RCP/KXY+Uvny6jkocvVjExMDx6g6TrgWP9j0ExfaQ2VWa0xUYDBP/JTJFgZhvTunl8avWHZHERb5JdnpWekCS+1s4hs4kXn9M8TgXIOBs7/Zqb4WT7bjxkfOKbZp2++tKx9lJXdOrdHeOqmWWyEIxHQ7JyLCsbBl1UAOvelKeG80sge0Q0vzfFREYbijkc7TO7CIFx/nxgup0NrZs9goJcYj+syjvXmz4afIWT4zn1Rbcp/LV84yimmGN/m6Hx17f6/pWmwqd1xVe6fKA0gKLNVoynh68DcuU4G+w9pqmBPCrsBKRaap2b0aAVcgvFT3Ln96oO31n9uk0N8OU+mTmrKdi9eTqyzvnPvuoGqGkxEESKR5QYzOxReGpW8aedIzHRwLalZuVLO0wUWWIduLfqg/zAQSuAO4ox5mVqmU=
+    name: §6광물팔기
+    uuid: 6b202232-23f2-4f1c-97db-f4b4f0cc0cdc
+    traits:
+      lookclose:
+        enabled: true
+        range: '5.0'
+        realisticlooking: false
+      spawned: true
+      gravity:
+        enabled: false
+      type: PLAYER
+      location:
+        world: world
+        x: '1762.4202'
+        y: '67.0'
+        z: '1213.586'
+        yaw: '163.44573974609375'
+        pitch: '0.0'
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: equipment,location,spawned,type,owner,lookclose,mounttrait,inventory
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true
+  '5':
+    metadata:
+      player-skin-textures: eyJ0aW1lc3RhbXAiOjE1ODc4MzExNTg2NzIsInByb2ZpbGVJZCI6ImY4ZGJiZTcwMGI3NzQ0YWI4ODk4ZmU3MThhYzgxZDUwIiwicHJvZmlsZU5hbWUiOiJJcm9uTWFuIiwic2lnbmF0dXJlUmVxdWlyZWQiOnRydWUsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS83Y2IwNWZjMGVlOTM4ZjQ5ZWFiMTY2YzM5M2U2MDdhNGY1ZjhiNzA2MWJjMWU1Y2RjYTk2NWViOTUxNDZkYzc1In19fQ==
+      cached-skin-uuid-name: ironman
+      cached-skin-uuid: f8dbbe70-0b77-44ab-8898-fe718ac81d50
+      player-skin-name: ironman
+      player-skin-signature: rQFSJA3BeMKKcPxKr84XUXbUX69VSnkq5c2TdgH++xuN7D6BJ/BCRRuYPpd4oGq/9ouNxlZyHqR0tB3b68dWcgxTc2A83AOXxxE5hvyY3yrB49g7ALk0t36a/dEg+doKgQsNZ9go7KcfRzHFmxNARJy9hTQEMCvjPtR6wK3kPQriYOagptnFB6a/jN3Jrh54M5MWKpGVJ/r85holH46fAlffs1xGOoY159Rt7fnWeWM79QCnfVVlz15PtLyzFApDFV4Q/FoiYwsjA/2MMzwZvSyY9Onc3I5B7i/OqBin63yX601nS35ngEbhEGvq6y0iOaIedSnI2+uCNW0U2Rwjo5aTLMHN01IQcHgzfJxQreFLEFb2t1MfSF33YkT7dpJjHNIs9fgmzcQO2QxZuE36VXCkd2xp6LwltwOChzsBHx7cVDF1xzN0qLzKmYJQIMrReMvTpUGiP5wNWdk8+apdNK/vl3hXIPE1UNZRraixRx+j0eyIAIzGL1rE6jHhuYBOnieX6mI0pNPK1XA+0e7YBs0sLup4GeYYksHDECfUF5hphXniE98rw/61T8fl/YRNveo/fvPtnmcJCfaqJhETKqEx3t+/fbN3ZYxiyA4aISePXSp6pSzKz9+s+c1BMUY6HTv2zOvwYRwJLgr0+Xzn8ZLcHuxpUYva1CtApFDX7MY=
+    name: §6경험치상인
+    uuid: 9fc0f2b7-5dcb-4ec2-b4b7-9bdabb2825a7
+    traits:
+      lookclose:
+        enabled: true
+        range: '5.0'
+        realisticlooking: false
+      spawned: true
+      gravity:
+        enabled: false
+      type: PLAYER
+      location:
+        world: world
+        x: '1775.644'
+        y: '67.0'
+        z: '1235.4842'
+        yaw: '-158.53915405273438'
+        pitch: '0.0'
+      owner:
+        owner: server
+        uuid: ''
+    traitnames: equipment,location,spawned,type,owner,lookclose,mounttrait,inventory
+    navigator:
+      speedmodifier: '1.0'
+      avoidwater: false
+      usedefaultstuckaction: true

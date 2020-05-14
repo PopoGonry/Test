@@ -1,0 +1,28 @@
+cfgver: "1.6.3"
+
+# SharpSK Config
+# True to enable plugin hook / False to Disable plugin hook
+metrics: true
+updater: true
+
+
+# Plugin hooks
+permissionsex: true
+mythicmobs: true
+jobsreborn: true
+authmereloaded: true
+lightapi: true
+ucars: true
+glowapi: true
+mcmmo: true
+coreprotect: true
+multiverse: true
+worldedit: true
+worldguard: true
+logblock: true
+towny: true
+kingdoms: true
+luckperms: true
+groupmanager: true
+slimefun: true
+fastasyncworldedit: true

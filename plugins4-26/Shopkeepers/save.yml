@@ -1,0 +1,402 @@
+'7':
+  uniqueId: 8ba92570-600c-4c00-b564-4b89cf971911
+  name: IronMan
+  world: world
+  x: 1775
+  y: 67
+  z: 1235
+  type: admin
+  object:
+    type: citizen
+    npcId: 5
+  recipes:
+    '0':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §810000원'
+          lore:
+          - §a우클릭시 10000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: EXP_BOTTLE
+        amount: 64
+'8':
+  uniqueId: f3cb83c8-003f-4e2b-8496-997601399aa1
+  name: Ari
+  world: world
+  x: 1762
+  y: 67
+  z: 1213
+  type: admin
+  object:
+    type: citizen
+    npcId: 6
+  recipes:
+    '0':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: COAL
+        amount: 64
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §832000원'
+          lore:
+          - §a우클릭시 32000원 만큼 돈을 얻습니다.
+    '1':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: COAL
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §8500원'
+          lore:
+          - §a우클릭시 500원 만큼 돈을 얻습니다.
+    '2':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: IRON_INGOT
+        amount: 64
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §864000원'
+          lore:
+          - §a우클릭시 64000원 만큼 돈을 얻습니다.
+    '3':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: IRON_INGOT
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §81000원'
+          lore:
+          - §a우클릭시 1000원 만큼 돈을 얻습니다.
+    '4':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: REDSTONE
+        amount: 64
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §810000원'
+          lore:
+          - §a우클릭시 10000원 만큼 돈을 얻습니다.
+    '5':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: REDSTONE
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §8300원'
+          lore:
+          - §a우클릭시 300원 만큼 돈을 얻습니다.
+    '6':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: GOLD_INGOT
+        amount: 64
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §896000원'
+          lore:
+          - §a우클릭시 96000원 만큼 돈을 얻습니다.
+    '7':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: GOLD_INGOT
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §81500원'
+          lore:
+          - §a우클릭시 1500원 만큼 돈을 얻습니다.
+'9':
+  uniqueId: f7143a08-33af-4f29-8a3c-c2cfaf3d15e2
+  name: Ari
+  world: world
+  x: 1765
+  y: 67
+  z: 1213
+  type: admin
+  object:
+    type: citizen
+    npcId: 8
+  recipes:
+    '0':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §8500원'
+          lore:
+          - §a우클릭시 500원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: COAL
+    '1':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §832000원'
+          lore:
+          - §a우클릭시 32000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: COAL
+        amount: 64
+    '2':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §81000원'
+          lore:
+          - §a우클릭시 1000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: IRON_INGOT
+    '3':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §864000원'
+          lore:
+          - §a우클릭시 64000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: IRON_INGOT
+        amount: 64
+    '4':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §8300원'
+          lore:
+          - §a우클릭시 300원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: REDSTONE
+    '5':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §810000원'
+          lore:
+          - §a우클릭시 10000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: REDSTONE
+        amount: 64
+    '6':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §81500원'
+          lore:
+          - §a우클릭시 1500원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: GOLD_INGOT
+    '7':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §896000원'
+          lore:
+          - §a우클릭시 96000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: GOLD_INGOT
+        amount: 64
+'10':
+  uniqueId: 3da4b6c8-a77b-46de-9ec5-e2ef4e9eb74a
+  name: Ari
+  world: world
+  x: 1763
+  y: 67
+  z: 1213
+  type: admin
+  object:
+    type: citizen
+    npcId: 9
+  recipes:
+    '0':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §830000원'
+          lore:
+          - §a우클릭시 30000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND
+    '1':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §82000000원'
+          lore:
+          - §a우클릭시 2000000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND
+        amount: 64
+    '2':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §8300원'
+          lore:
+          - §a우클릭시 300원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: INK_SACK
+        damage: 4
+    '3':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §810000원'
+          lore:
+          - §a우클릭시 10000원 만큼 돈을 얻습니다.
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: INK_SACK
+        damage: 4
+        amount: 64
+'11':
+  uniqueId: 3d291f8f-5f40-4850-850f-c55c29559bb2
+  name: Ari
+  world: world
+  x: 1760
+  y: 67
+  z: 1213
+  type: admin
+  object:
+    type: citizen
+    npcId: 10
+  recipes:
+    '0':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND
+        amount: 64
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §82000000원'
+          lore:
+          - §a우클릭시 2000000원 만큼 돈을 얻습니다.
+    '1':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §830000원'
+          lore:
+          - §a우클릭시 30000원 만큼 돈을 얻습니다.
+    '2':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: INK_SACK
+        damage: 4
+        amount: 64
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §810000원'
+          lore:
+          - §a우클릭시 10000원 만큼 돈을 얻습니다.
+    '3':
+      item1:
+        ==: org.bukkit.inventory.ItemStack
+        type: INK_SACK
+        damage: 4
+      resultItem:
+        ==: org.bukkit.inventory.ItemStack
+        type: PAPER
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: '§6수표 : §8300원'
+          lore:
+          - §a우클릭시 300원 만큼 돈을 얻습니다.

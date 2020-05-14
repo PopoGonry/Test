@@ -1,0 +1,27 @@
+Effects:
+	OpenInv:
+		ID: OpenInv
+		Patterns:
+			open chest with %number% row named %string% to %player%
+Expressions:
+	ClosedInvName:
+		ID: ClosedInvName
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			icname
+	IClickedRaw:
+		ID: IClickedRaw
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			[i]click[ed] raw [slot]
+	Iname:
+		ID: Iname
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			iname

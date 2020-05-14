@@ -1,0 +1,28 @@
+lastAccountName: Lek27
+timestamps:
+  login: 1585637596284
+  logout: 1585489708212
+  lastteleport: 1585638032771
+ipAddress: 1.248.70.80
+logoutlocation:
+  world: world_nether
+  x: -345.79150356919394
+  y: 67.0
+  z: -121.00245102921023
+  yaw: 179.67871
+  pitch: 7.056353
+lastlocation:
+  world: world
+  x: 1778.1198164461878
+  y: 63.0
+  z: 1285.1177963565485
+  yaw: -39.466084
+  pitch: 30.786509
+homes:
+  home:
+    world: world
+    x: 1133.9093552060065
+    y: 65.0
+    z: 1322.7772718167391
+    yaw: -210.24205
+    pitch: 32.80334

@@ -1,0 +1,8 @@
+Expressions:
+	ExprClickItem:
+		ID: ExprClickItem
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			click item

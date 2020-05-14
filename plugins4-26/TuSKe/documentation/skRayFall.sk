@@ -1,0 +1,526 @@
+Events:
+	On Crafting Click:
+		ID: crafting_click
+		Patterns:
+			[on] crafting click in slot %number%
+		Event values:
+			event-itemstack
+			event-world
+			event-clickaction
+			event-slot
+			event-player
+			event-recipe
+			event-inventoryaction
+		Cancellable: true
+Conditions:
+	CondIsGlowing:
+		ID: CondIsGlowing
+		Patterns:
+			%player% glowing
+	CondIsNpc:
+		ID: CondIsNpc
+		Patterns:
+			%entity% is [a] (npc|citizen)
+	CondIsNpcId:
+		ID: CondIsNpcId
+		Patterns:
+			(NPC|Citizen) is %number%
+	CondIsNpcIdGeneral:
+		ID: CondIsNpcIdGeneral
+		Patterns:
+			%entity% is (citizen|npc) %number%
+	CondIsNpcNamed:
+		ID: CondIsNpcNamed
+		Patterns:
+			(NPC|Citizen)['s] [is] name[d] [is] %string%
+	CondisScoreboardSet:
+		ID: CondisScoreboardSet
+		Patterns:
+			side bar is set for %player%
+Effects:
+	Add Player to ID Based Bossbar:
+		ID: EffSetBossBar
+		Description:
+			Add a player to an ID based Bossbar.
+		Patterns:
+			(add|set) bossbar %string% for %player% 
+			(add|give) %players% [to] bossbar %string%
+	Bossbars - Add flag:
+		ID: EffBossBarAddFlag
+		Description:
+			Adds a flag to a bossbar
+
+Flags:
+
+CREATE_FOG
+Creates fog around the world.
+DARKEN_SKY
+Darkens the sky like during fighting a wither.
+PLAY_BOSS_MUSIC
+Tells the client to play the Ender Dragon boss music.
+		Patterns:
+			(add|set) [a] [the] flag %bossbarflag% to [the] bossbar %string%
+	Bossbars - Remove flag:
+		ID: EffBossBarRemoveFlag
+		Description:
+			Removes a flag from a bossbar
+		Patterns:
+			(remove|delete) [a] [the] flag %bossbarflag% [to] [from] [the] bossbar %string%
+	Create ID based Bossbar:
+		ID: EffCreateModernBossBar
+		Description:
+			Create a ID based Bossbar for a group of people.
+		Patterns:
+			create (bossbar|boss bar) title[d] %string% and id %string% for %players% [with (value|progress) %number%] [with colors %-bossbarcolor%] [with style %-bossbarstyle%] [with flags %-bossbarflag%]
+	Delete ID based Bossbar:
+		ID: EffDeleteModernBossBar
+		Description:
+			Delete/destroy an ID based Bossbar.
+		Patterns:
+			(remove|destroy) bossbar %string%
+	EffActionBarV1_12:
+		ID: EffActionBarV1_12
+		Patterns:
+			set action bar of %players% to %string%
+			set %player%['s] action bar to %string%
+	EffAddPlayerToGroupId:
+		ID: EffAddPlayerToGroupId
+		Patterns:
+			add %player% to group score [with id] %string%
+	EffCitizenAttack:
+		ID: EffCitizenAttack
+		Patterns:
+			make citizen %number% (attack|fight) %entity%
+	EffCitizenHold:
+		ID: EffCitizenHold
+		Patterns:
+			make citizen %number% hold [an] %itemstack%
+	EffCitizenLookTarget:
+		ID: EffCitizenLookTarget
+		Patterns:
+			make citizen %number% look at %location%
+	EffCitizenMove:
+		ID: EffCitizenMove
+		Patterns:
+			move citizen %number% to %location% [at speed %number%]
+	EffCitizenNameVisable:
+		ID: EffCitizenNameVisable
+		Patterns:
+			(set|make) citizen[s] %number% nametag (1¦invisible|0¦visible)
+	EffCitizenSetCrouch:
+		ID: EffCitizenSetCrouch
+		Patterns:
+			(set|make) citizen %number% [to] [be] crouch[ed]
+			(set|make) citizen %number% [to] [be] uncrouch[ed]
+	EffCitizenSetMaxHealth:
+		ID: EffCitizenSetMaxHealth
+		Patterns:
+			(set|make) citizen[s] %number% max health [to] %number%
+	EffCitizenSetSkin:
+		ID: EffCitizenSetSkin
+		Patterns:
+			change citizen %number% skin to %string%
+	EffCitizenSleep:
+		ID: EffCitizenSleep
+		Patterns:
+			(make|force) (npc|citizen) with id %number% to sleep
+			(make|force) (npc|citizen) with id %number% to wake [up]
+	EffCitizenSpeak:
+		ID: EffCitizenSpeak
+		Patterns:
+			make citizen %number% (say|communicate) %string% to %livingentities%
+	EffCitizenSwing:
+		ID: EffCitizenSwing
+		Patterns:
+			make citizen %number% swing [arm]
+	EffCitizenToggleCrouch:
+		ID: EffCitizenToggleCrouch
+		Patterns:
+			toggle citizen %number%['s] crouch
+	EffCitizenVulnerablity:
+		ID: EffCitizenVulnerablity
+		Patterns:
+			make citizen %number% (1¦invulnerable|0¦vulnerable)
+	EffClientsideStaticParticles:
+		ID: EffClientsideStaticParticles
+		Patterns:
+			(create|display|show) %number% [of] %effectlibparticle% particle[s] at %location% for %player% [with data of %-itemstack%] [offset by %number%, %number%(,| and) %number%] [(with|at) speed %number%]
+	EffCreateCitizen:
+		ID: EffCreateCitizen
+		Patterns:
+			create [a] citizen named %string% (at|%direction%) %location% [as (a|an) %entitytypes%]
+	EffCreateGroupIdScore:
+		ID: EffCreateGroupIdScore
+		Patterns:
+			(set|create) group id [based] score %string% in sidebar for %players% to %number% with id %string%
+	EffDeleteCitizen:
+		ID: EffDeleteCitizen
+		Patterns:
+			(remove|destroy) citizen %number%
+	EffDeleteEffect:
+		ID: EffDeleteEffect
+		Patterns:
+			(delete|stop) (effect|formation) %string%
+	EffDeleteIdScore:
+		ID: EffDeleteIdScore
+		Patterns:
+			(delete|remove) score [with] id %string%
+	EffDeleteScore:
+		ID: EffDeleteScore
+		Patterns:
+			delete score %string% in sidebar of %player%
+	EffDespawnCitizen:
+		ID: EffDespawnCitizen
+		Patterns:
+			despawn citizen %number%
+	EffEditGroupIdScore:
+		ID: EffEditGroupIdScore
+		Patterns:
+			(edit|update) score [with][in] group [id] %string% to %string% and %number%
+	EffEditIdScore:
+		ID: EffEditIdScore
+		Patterns:
+			(edit|update) score [with] id %string% to %string% and %number%
+	EffEffectLibAnimatedBallEffect:
+		ID: EffEffectLibAnimatedBallEffect
+		Patterns:
+			(spawn|create|apply) (a|the|an) animated ball (effect|formation) (at|on|for|to) %entity/location% with id %string% [with particle %-effectlibparticle%] [offset by %number%, %number%(,| and) %number%]
+	EffEffectLibArc:
+		ID: EffEffectLibArc
+		Patterns:
+			(spawn|create|apply) (a|the|an) arc (effect|formation) from %entity/location% to %entity/location% with id %string% [with particle[s] %-effectlibparticle%] [%number% high] [and %number% particles]
+	EffEffectLibAtom:
+		ID: EffEffectLibAtom
+		Patterns:
+			(spawn|create|apply) (a|the|an) atom (effect|formation) (at|on|for|to) %entity/location% with id %string%
+	EffEffectLibBleed:
+		ID: EffEffectLibBleed
+		Patterns:
+			(spawn|create|apply) (a|the|an) bleed (effect|formation) (at|on|for|to) %entity/location% with id %string%
+	EffEffectLibCircle:
+		ID: EffEffectLibCircle
+		Patterns:
+			(spawn|create|apply) (a|the|an) circle (effect|formation) (at|on|for) %entity/location% with id %string% [with particle[s] %-effectlibparticle%] [(and|with) radius %-number%]
+	EffEffectLibLine:
+		ID: EffEffectLibLine
+		Patterns:
+			(spawn|create|apply) (a|the|an) line (effect|formation) from %entity/location% to %entity/location% with id %string% [with particle[s] %-effectlibparticle%]
+	EffEffectLibText:
+		ID: EffEffectLibText
+		Patterns:
+			(spawn|create|apply) (a|the|an) text (effect|formation) with text %string% as %effectlibparticle% (at|on|for|to) %entities/location% with id %string%[(,| and) %number% large]
+	EffEffectLibWave:
+		ID: EffEffectLibWave
+		Patterns:
+			(spawn|create|apply) (a|the|an) wave (effect|formation) at %entity/location% with id %string% [with particle[s] %-effectlibparticle%]
+	EffEffectTornado:
+		ID: EffEffectTornado
+		Patterns:
+			(spawn|create|apply) (a|the|an) tornado (effect|formation) at %entity/location% with id %string% [with tornado particle[s] %-effectlibparticle% and cloud particle[s] %-effectlibparticle%] [(set|and) radius %number%] [(set|and) max height %number%]
+	EffEquipCitizen:
+		ID: EffEquipCitizen
+		Patterns:
+			(equip|give) citizen %number% with [an] %itemstack%
+	EffFakeFakeLightning:
+		ID: EffFakeFakeLightning
+		Patterns:
+			(create|strike) (fake|ultra|no sound) fake lightning at %location%
+	EffGiveLookCloseTrait:
+		ID: EffGiveLookCloseTrait
+		Patterns:
+			(give|set) npc %number% the look close trait
+	EffMakePlayerGlow:
+		ID: EffMakePlayerGlow
+		Patterns:
+			make %player% glow
+	EffMaxHealth:
+		ID: EffMaxHealth
+		Patterns:
+			set rf max[imum] h(p|ealth) of %livingentities% to %number%
+	EffNameOfScore:
+		ID: EffNameOfScore
+		Patterns:
+			set name of sidebar (of|for) %players% to %string%
+	EffParticlesV1_12:
+		ID: EffParticlesV1_12
+		Patterns:
+			show %number% %string% particle[s] at %location% for %player% [offset by %number%, %number%( and|,) %number%]
+	EffPlayResourcePackSound:
+		ID: EffPlayResourcePackSound
+		Patterns:
+			play (resource|[custom ]sound) [sound] pack %string% to %player% [at %-location%] [(and|with) volume %number%] [(and|with) pitch %number%]
+	EffPlaySoundPacket:
+		ID: EffPlaySoundPacket
+		Patterns:
+			play %string% to %players% [at volume %number%]
+	EffRemoveLookCloseTrait:
+		ID: EffRemoveLookCloseTrait
+		Patterns:
+			remove npc %number%['s] look close trait
+	EffRemovePlayerFromIdScore:
+		ID: EffRemovePlayerFromIdScore
+		Patterns:
+			(delete|remove) %player% from group [id based] score %string%
+	EffRemoveScoreBelowName:
+		ID: EffRemoveScoreBelowName
+		Patterns:
+			(wipe|erase) below score[s] for %player%
+	EffRemoveScoreTab:
+		ID: EffRemoveScoreTab
+		Patterns:
+			(wipe|erase|delete) %player%['s] tab[list]
+	EffRemoveScoreboard:
+		ID: EffRemoveScoreboard
+		Patterns:
+			(wipe|erase|delete) %player%['s] sidebar
+	EffSetCitizenName:
+		ID: EffSetCitizenName
+		Patterns:
+			(set|make) citizen[s] %number% name to %string%
+	EffSetIdBasedScore:
+		ID: EffSetIdBasedScore
+		Patterns:
+			(set|create) id [based] score %string% in sidebar of %player% to %number% with id %string%
+	EffSetMetaData:
+		ID: EffSetMetaData
+		Patterns:
+			set meta %string% for %entity% to %string%
+	EffSetPlayerListName:
+		ID: EffSetPlayerListName
+		Patterns:
+			set %player% tab name to %string%
+	EffSetScore:
+		ID: EffSetScore
+		Patterns:
+			set score %string% in sidebar of %player% to %number%
+	EffSetScoreBelowName:
+		ID: EffSetScoreBelowName
+		Patterns:
+			set score %string% below %player% to %number% for %player%
+	EffSetScoreTab:
+		ID: EffSetScoreTab
+		Patterns:
+			set tab[list] score of %player% to %number% for %player%
+	EffSpawnCitizen:
+		ID: EffSpawnCitizen
+		Patterns:
+			respawn citizen %number% (at|%direction%) %location%
+	EffStaticParticles:
+		ID: EffStaticParticles
+		Patterns:
+			(create|display|show) %number% [of] %effectlibparticle% particle[s] at %location% [(with data of %-itemstack%|with color %number%, %number%(,| and) %number%)] [offset by %number%, %number%(,| and) %number%] [(with|at) speed %number%]
+	EffTabTitlesV1_12:
+		ID: EffTabTitlesV1_12
+		Patterns:
+			set tab header to %string% and footer to %string% for %player%
+	EffTitleV1_12:
+		ID: EffTitleV1_12
+		Patterns:
+			send %players% title %string% [with subtitle %-string%] [for %-timespan%] [with %-timespan% fade in and %-timespan% fade out]
+	EffUnglowPlayer:
+		ID: EffUnglowPlayer
+		Patterns:
+			make %player% (unglow|stop glowing)
+	Hide BossBar:
+		ID: EffBossBarHide
+		Description:
+			Hide a ID based Bossbar.
+		Patterns:
+			hide bossbar %string%
+	Remove Player from BossBar:
+		ID: EffRemovePlayerFromBossBar
+		Description:
+			Remove a player from a ID based Bossbar.
+		Patterns:
+			remove %players% [from] bossbar %string%
+	RemoveGroupIdScore:
+		ID: RemoveGroupIdScore
+		Patterns:
+			(delete|remove) score[s] [with] group id %string%
+	Set Bossbar Color:
+		ID: EffChangeBossBarColor
+		Description:
+			Set the color of an ID based Bossbar.
+		Patterns:
+			(set|edit) bossbar %string% colo[u]r to %bossbarcolor%
+	Set Bossbar Progress/Value:
+		ID: EffChangeBossBarValue
+		Description:
+			Set the progress of an ID based bossbar.
+		Patterns:
+			(set|edit) bossbar %string% (value|progress) to %number%
+	Set Bossbar Style:
+		ID: EffChangeBossBarStyle
+		Description:
+			Set the style of an ID based Bossbar.
+		Patterns:
+			(set|edit) bossbar %string% style to %bossbarstyle%
+	Set Bossbar Title/Name:
+		ID: EffChangeBossBarTitle
+		Description:
+			Set the name of an ID based Bossbar.
+		Patterns:
+			(set|edit) bossbar %string% (title|name) to %string%
+	Show/Unhide Bossbar:
+		ID: EffBossBarShow
+		Description:
+			Show a hidden ID based Bossbar.
+		Patterns:
+			(show|display|unhide) bossbar %string%
+Expressions:
+	Absolute Amount of Items:
+		ID: ExprAbsoluteInventoryCount
+		Description:
+			Get the number of items in a playerâ€™s inventory that are an absolute match to a sample item. To match they must have the same enchants, name and lore.
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			(absolute|complex|abs) number of %itemstack% in %player%['s] (inventory|inv)
+	ExprArmorValue:
+		ID: ExprArmorValue
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			%player%['s] armo[u]r value
+	ExprCitizenIdFromEntity:
+		ID: ExprCitizenIdFromEntity
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			citizen id of %entity%
+	ExprGeneralCitizen:
+		ID: ExprGeneralCitizen
+		Return type: Entity
+		Changers:
+			add
+			remove
+			remove all
+		Patterns:
+			citizen %number%
+	ExprLastCitizen:
+		ID: ExprLastCitizen
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			last created citizen [id]
+	ExprMetaData:
+		ID: ExprMetaData
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			meta %string% for %entity%
+	ExprNameOfCitizen:
+		ID: ExprNameOfCitizen
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			name of citizen %number%
+	ExprNoNbt:
+		ID: ExprNoNbt
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			%itemstacks% with no nbt
+	ExprNumberOfEnchants:
+		ID: ExprNumberOfEnchants
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			number of enchant[ment]s on %itemstack%
+	ExprOwnerOfCitizen:
+		ID: ExprOwnerOfCitizen
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			owner of (citizen|npc) %number%
+	ExprRayfallOffhand:
+		ID: ExprRayfallOffhand
+		Return type: Item / Material
+		Changers:
+			set
+		Patterns:
+			%player%['s] offhand
+			item in %player%['s] offhand
+	ExprScoreBoardTitle:
+		ID: ExprScoreBoardTitle
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			sidebar (title|name) for %player%
+	ExprScoreNameFromGroupId:
+		ID: ExprScoreNameFromGroupId
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			group score (name|title) (of|from) id %string%
+	ExprScoreNameFromId:
+		ID: ExprScoreNameFromId
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			score (name|title) (of|from) id %string%
+	ExprScoreValueFromGroupId:
+		ID: ExprScoreValueFromGroupId
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			group score (value|number) (of|from) id %string%
+	ExprScoreValueFromId:
+		ID: ExprScoreValueFromId
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			score (value|number) (of|from) id %string%
+	ExprShinyItem:
+		ID: ExprShinyItem
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			shiny %itemstacks%
+	ExprSpecificEnchantIndex:
+		ID: ExprSpecificEnchantIndex
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			info of enchant[ment] %number% (of|on) %itemstack%
+	ExprTextToLocation:
+		ID: ExprTextToLocation
+		Return type: Location
+		Changers:
+			none
+		Patterns:
+			%string% converted to location
+	Title/Name of BossBar:
+		ID: ExprBossBarTitle
+		Description:
+			Get the name of an ID based Bossbar.
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			(title|name) of bossbar %string%
+	Value/Progress of Bossbar:
+		ID: ExprBossBarValue
+		Description:
+			Get the value of an ID based Bossbar.
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			(value|progress) of bossbar %string%

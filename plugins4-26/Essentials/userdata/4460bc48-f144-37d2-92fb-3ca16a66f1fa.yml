@@ -1,0 +1,21 @@
+lastAccountName: gksruf
+timestamps:
+  login: 1585474696786
+  logout: 1585485853483
+  lastteleport: 1585485169498
+ipAddress: 119.204.215.192
+lastlocation:
+  world: world_nether
+  x: 142.69999998807907
+  y: 57.0
+  z: -159.69999998807907
+  yaw: -272.13083
+  pitch: 30.509598
+logoutlocation:
+  world: world
+  x: 1123.3817849164843
+  y: 67.0
+  z: 1275.4517511554627
+  yaw: -279.47412
+  pitch: 45.251568
+afk: false

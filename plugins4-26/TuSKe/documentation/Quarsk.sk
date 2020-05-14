@@ -1,0 +1,286 @@
+Events:
+	On Lingering potion splash:
+		ID: lingering_potion_splash
+		Patterns:
+			[on] [quar[s]k] linger[ing] potion splash[ing] [with [effect] types %-*potioneffecttypes*]
+		Event values:
+			event-entity
+			event-projectile
+		Cancellable: true
+	On potion splashing:
+		ID: potion_splashing
+		Patterns:
+			[on] [quar[s]k] [potion] splash[ing] [(of|with) %-*potioneffecttypes%]
+		Event values:
+			event-projectile
+		Cancellable: true
+Conditions:
+	CondHasPotionEffect:
+		ID: CondHasPotionEffect
+		Patterns:
+			[quar[s]k] %livingentity% (0¦has [got]|1¦has( not|n't) [got]) [(the|a)] %potioneffecttype% [potion] [effect]
+	CondIsWallBanner:
+		ID: CondIsWallBanner
+		Patterns:
+			%block% (is|are) [a] wall banner
+			%block% (isn't|is not|aren't|are not) [a] wall banner
+Effects:
+	EffApplyBannerItemToBlock:
+		ID: EffApplyBannerItemToBlock
+		Patterns:
+			[quar[s]k] apply [(banner|shield)] patterns of %itemstack% to %block%
+			[quar[s]k] apply %itemstack%['s] [(banner|shield)] pattern[s] to %block%
+	EffApplyPotionEffects:
+		ID: EffApplyPotionEffects
+		Patterns:
+			[quar[s]k] apply %potioneffects% to %livingentities%
+	EffLinkReference:
+		ID: EffLinkReference
+		Patterns:
+			[quar[s]k] link @<.+?>@ to %object%
+	EffMilkEntity:
+		ID: EffMilkEntity
+		Patterns:
+			[quar[s]k] milk %livingentities%
+	EffOrientTowards:
+		ID: EffOrientTowards
+		Patterns:
+			[quar[s]k] orient %livingentity% (0¦towards|1¦away from) %location%
+			[quar[s]k] make %livingentity% (face|look [at]) (0¦[towards]|1¦away from) %location%
+			[quar[s]k] force %livingentity% to (face|look [at]) (0¦[towards]|1¦away from) %location%
+Expressions:
+	ExprBannerItemFromMnc:
+		ID: ExprBannerItemFromMnc
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] (0¦banner|1¦shield) from [m[iners]]n[eed]c[ool][s[hoes]] [code] %string%
+	ExprBannerItemToMnc:
+		ID: ExprBannerItemToMnc
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] [m[iners]]n[eed]c[ool][s[hoes]] code of %itemstack%
+			[quar[s]k] %itemstack%['s] [m[iners]]n[eed]c[ool][s[hoes]] code
+	ExprBannerOrShieldWithLayers:
+		ID: ExprBannerOrShieldWithLayers
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] [new] (0¦banner|1¦shield) (with|using) [pattern[s]] %bannerlayers% [(and|with)] base colo[u]r %color%
+	ExprBeaconTier:
+		ID: ExprBeaconTier
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			[the] beacon (tier|level) of %block%
+			%block%'[s] beacon (tier|level)
+	ExprCustomBannerLayer:
+		ID: ExprCustomBannerLayer
+		Return type: banner layer
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] [new] [banner] (layer|pattern) (with|using) (pattern [type]|type) %bannerpattern% [(with|and)] colo[u]r %color%
+	ExprCustomPotionEffect:
+		ID: ExprCustomPotionEffect
+		Return type: potioneffect
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] %potioneffecttype% for %timespan% [with] tier %number% [particles %-boolean% [(ambient|beacon) %-boolean% [colo[u]r %-color%]]]]]
+	ExprCustomPotionItem:
+		ID: ExprCustomPotionItem
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] (0¦[normal] potion|1¦splash potion|2¦linger[ing] potion|3¦(potion|tipped) arrow) (with|using) [effects] %potioneffects%
+	ExprEntitiesInRange:
+		ID: ExprEntitiesInRange
+		Return type: Living Entity
+		Changers:
+			add
+			remove
+			remove all
+		Patterns:
+			[quar[s]k] entities in range of [beacon] %block%
+	ExprEntityPotionEffects:
+		ID: ExprEntityPotionEffects
+		Return type: potioneffect
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] [potion] effects (on|of) %livingentities%
+			[quar[s]k] %livingentities%['s] [potion] effects
+	ExprItemOfBannerBlock:
+		ID: ExprItemOfBannerBlock
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			[the] banner item of %block%
+			%block%'[s] banner item
+	ExprPotionEffectDuration:
+		ID: ExprPotionEffectDuration
+		Return type: Timespan
+		Changers:
+			none
+		Patterns:
+			[the] duration of %potioneffect%
+			%potioneffect%'[s] duration
+	ExprPotionEffectTier:
+		ID: ExprPotionEffectTier
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			[the] tier of %potioneffect%
+			%potioneffect%'[s] tier
+	ExprPotionEffectType:
+		ID: ExprPotionEffectType
+		Return type: Potion Effect Type
+		Changers:
+			none
+		Patterns:
+			[the] [potion] effect type of %potioneffect%
+			%potioneffect%'[s] [potion] effect type
+	ExprPotionSplashAffectedEntities:
+		ID: ExprPotionSplashAffectedEntities
+		Return type: Living Entity
+		Changers:
+			add
+			remove
+			remove all
+		Patterns:
+			[quar[s]k] [the] affected entities
+	ExprRandomBanner:
+		ID: ExprRandomBanner
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			[quar[s]k] [a] [new] random (0¦banner|1¦shield)
+	SExprBannerBlockBaseColor:
+		ID: SExprBannerBlockBaseColor
+		Return type: Colour
+		Changers:
+			set
+			reset
+		Patterns:
+			[the] bas(e|ic) color of %block%
+			%block%'[s] bas(e|ic) color
+	SExprBannerBlockLayers:
+		ID: SExprBannerBlockLayers
+		Return type: banner layer
+		Changers:
+			add
+			set
+			delete
+			reset
+		Patterns:
+			[quar[s]k] [banner] pattern[s] of %block%
+			[quar[s]k] %block%['s] [banner] pattern[s]
+	SExprBeaconEffects:
+		ID: SExprBeaconEffects
+		Return type: potioneffect
+		Changers:
+			set
+			delete
+			reset
+		Patterns:
+			[quar[s]k] [the] (0¦(first|primary)|1¦second[ary]) [potion] effect of [beacon] %block%
+			[quar[s]k] [beacon] %block%['s] (0¦(first|primary)|1¦second[ary]) [potion] effect
+	SExprBeaconFuel:
+		ID: SExprBeaconFuel
+		Return type: Item / Material
+		Changers:
+			set
+		Patterns:
+			[the] beacon fuel[ing] [item] of %block%
+			%block%'[s] beacon fuel[ing] [item]
+	SExprItemBaseColor:
+		ID: SExprItemBaseColor
+		Return type: Colour
+		Changers:
+			set
+			reset
+		Patterns:
+			[the] bas(e|ic) color of %itemstack%
+			%itemstack%'[s] bas(e|ic) color
+	SExprItemEffectTypeAmplifier:
+		ID: SExprItemEffectTypeAmplifier
+		Return type: Number
+		Changers:
+			add
+			set
+			remove
+		Patterns:
+			[quar[s]k] (tier|amplifier) of %potioneffecttype% on %itemstack%
+			[quar[s]k] %potioneffecttype%['s] (tier|amplifier) on %itemstack%
+	SExprItemEffectTypeDuration:
+		ID: SExprItemEffectTypeDuration
+		Return type: Timespan
+		Changers:
+			add
+			set
+			remove
+		Patterns:
+			[quar[s]k] duration of %potioneffecttype% on %itemstack%
+			[quar[s]k] %potioneffecttype%['s] duration on %itemstack%
+	SExprItemLayers:
+		ID: SExprItemLayers
+		Return type: banner layer
+		Changers:
+			add
+			set
+			delete
+			reset
+		Patterns:
+			[quar[s]k] [banner] pattern[s] of %itemstack%
+			[quar[s]k] %itemstack%['s] [banner] pattern[s]
+	SExprPotionItemEffects:
+		ID: SExprPotionItemEffects
+		Return type: potioneffect
+		Changers:
+			add
+			set
+			remove
+			remove all
+			delete
+			reset
+		Patterns:
+			[quar[s]k] [potion] effects (on|of) %itemstack%
+			[quar[s]k] %itemstack%['s] [potion] effects
+	SExprThrownPotionEffects:
+		ID: SExprThrownPotionEffects
+		Return type: potioneffect
+		Changers:
+			add
+			set
+			remove
+			remove all
+			delete
+		Patterns:
+			[quar[s]k] [all] [potion] effects (of|on) [(entity|thrown potion|tipped arrow)] %entity%
+Types:
+	PatternType:
+		ID: PatternType
+		Patterns:
+			banner[ ]pattern[[]:[ ]type]
+	banner layer:
+		ID: Pattern
+		Description:
+			A getter for banner layers
+		Patterns:
+			banner[ ](layer|pattern)
+	potioneffect:
+		ID: PotionEffect
+		Description:
+			A getter for potion effects
+		Patterns:
+			potion[ ]effect

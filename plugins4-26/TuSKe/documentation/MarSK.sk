@@ -1,0 +1,290 @@
+Events:
+	On enter area:
+		ID: enter_area
+		Patterns:
+			[on] (enter|join) area at %string%
+		Event values:
+			event-world
+			event-block
+			event-player
+		Cancellable: true
+	On mar.jump:
+		ID: mar.jump
+		Patterns:
+			[on] [mar.]jump
+		Event values:
+			event-player
+		Cancellable: true
+	On quit area:
+		ID: quit_area
+		Patterns:
+			[on] (exit|quit|leave) area at %string%
+		Event values:
+			event-world
+			event-block
+			event-player
+		Cancellable: true
+Conditions:
+	CondIsAnvil:
+		ID: CondIsAnvil
+		Patterns:
+			%string% is anvil
+	CondIsArmour:
+		ID: CondIsArmour
+		Patterns:
+			%string% is armour
+	CondIsBeacon:
+		ID: CondIsBeacon
+		Patterns:
+			%string% is beacon
+	CondIsBrewing:
+		ID: CondIsBrewing
+		Patterns:
+			%string% is brewing
+	CondIsChest:
+		ID: CondIsChest
+		Patterns:
+			%string% is chest
+	CondIsContainer:
+		ID: CondIsContainer
+		Patterns:
+			%string% is container
+	CondIsControlDropClick:
+		ID: CondIsControlDropClick
+		Patterns:
+			%string% is (controldrop|control drop)
+	CondIsCrafting:
+		ID: CondIsCrafting
+		Patterns:
+			%string% is crafting
+	CondIsCraftingI:
+		ID: CondIsCraftingI
+		Patterns:
+			%string% is crafting
+	CondIsCreative:
+		ID: CondIsCreative
+		Patterns:
+			%string% is creative
+	CondIsCreativeClick:
+		ID: CondIsCreativeClick
+		Patterns:
+			%string% is (creativeclick|creative click)
+	CondIsDispenser:
+		ID: CondIsDispenser
+		Patterns:
+			%string% is dispenser
+	CondIsDoubleClick:
+		ID: CondIsDoubleClick
+		Patterns:
+			%string% is (double|doubleclick|double click)
+	CondIsDropClick:
+		ID: CondIsDropClick
+		Patterns:
+			%string% is drop
+	CondIsDropper:
+		ID: CondIsDropper
+		Patterns:
+			%string% is dropper
+	CondIsEnchanting:
+		ID: CondIsEnchanting
+		Patterns:
+			%string% is enchanting
+	CondIsEnderChest:
+		ID: CondIsEnderChest
+		Patterns:
+			%string% is enderchest
+	CondIsFuel:
+		ID: CondIsFuel
+		Patterns:
+			%string% is fuel
+	CondIsFurnace:
+		ID: CondIsFurnace
+		Patterns:
+			%string% is furnace
+	CondIsHopper:
+		ID: CondIsHopper
+		Patterns:
+			%string% is hopper
+	CondIsInArea:
+		ID: CondIsInArea
+		Patterns:
+			%player% is in area %string%
+	CondIsLeftAndShiftClick:
+		ID: CondIsLeftAndShiftClick
+		Patterns:
+			%string% is (left|leftclick|left click) and (shift|shiftclick|shift click)
+			%string% is (shift|shiftclick|shift click) and (left|leftclick|left click)
+	CondIsLeftClick:
+		ID: CondIsLeftClick
+		Patterns:
+			%string% is (left|leftclick|left click)
+	CondIsMerchant:
+		ID: CondIsMerchant
+		Patterns:
+			%string% is merchant
+	CondIsMiddleAndShiftClick:
+		ID: CondIsMiddleAndShiftClick
+		Patterns:
+			%string% is (middle|middleclick|middle click) and (shift|shiftclick|shift click)
+			%string% is (shift|shiftclick|shift click) and (middle|middleclick|middle click)
+	CondIsMiddleClick:
+		ID: CondIsMiddleClick
+		Patterns:
+			%string% is (middle|middleclick|middle click)
+	CondIsNumberClick:
+		ID: CondIsNumberClick
+		Patterns:
+			%string% is (numberkey|number key)
+	CondIsOutside:
+		ID: CondIsOutside
+		Patterns:
+			%string% is outside
+	CondIsPlayer:
+		ID: CondIsPlayer
+		Patterns:
+			%string% is player inventory
+	CondIsQuickbar:
+		ID: CondIsQuickbar
+		Patterns:
+			%string% is quickbar
+	CondIsResult:
+		ID: CondIsResult
+		Patterns:
+			%string% is result
+	CondIsRightAndShiftClick:
+		ID: CondIsRightAndShiftClick
+		Patterns:
+			%string% is (right|rightclick|right click) and (shift|shiftclick|shift click)
+			%string% is (shift|shiftclick|shift click) and (right|rightclick|right click)
+	CondIsRightClick:
+		ID: CondIsRightClick
+		Patterns:
+			%string% is (right|rightclick|right click)
+	CondIsShiftClick:
+		ID: CondIsShiftClick
+		Patterns:
+			%string% is (shift|shiftclick|shift click)
+	CondIsSymbols:
+		ID: CondIsSymbols
+		Patterns:
+			%string% contains symbols
+	CondIsUnknownClick:
+		ID: CondIsUnknownClick
+		Patterns:
+			%string% is unknown
+	CondIsWorkbench:
+		ID: CondIsWorkbench
+		Patterns:
+			%string% is workbench
+Effects:
+	EffCreateArea:
+		ID: EffCreateArea
+		Patterns:
+			create area of %string% at %location%, %location%
+	EffRemoveArea:
+		ID: EffRemoveArea
+		Patterns:
+			(remove|delete) area of %string%
+Expressions:
+	ExprCharAt:
+		ID: ExprCharAt
+		Return type: Object
+		Changers:
+			none
+		Patterns:
+			char at %number% in %string%
+	ExprClickNumber:
+		ID: ExprClickNumber
+		Return type: integer
+		Changers:
+			none
+		Patterns:
+			click number
+	ExprClickType:
+		ID: ExprClickType
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			click type
+	ExprCurrentMilliseconds:
+		ID: ExprCurrentMilliseconds
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			current[ ]milis[econd[s]]
+	ExprDecimal:
+		ID: ExprDecimal
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			decimal with %integer% in %number%
+	ExprEnchantLevel:
+		ID: ExprEnchantLevel
+		Return type: integer
+		Changers:
+			none
+		Patterns:
+			enchant level of %enchantment% of %itemstacks%
+	ExprGetWebSource:
+		ID: ExprGetWebSource
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			web source of %string%
+	ExprInPlayers:
+		ID: ExprInPlayers
+		Return type: Player
+		Changers:
+			add
+			remove
+			remove all
+		Patterns:
+			players in area %string%
+	ExprInventoryType:
+		ID: ExprInventoryType
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			inventory type
+	ExprMaxDurability:
+		ID: ExprMaxDurability
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			(md of %integer%|%integer%'s md)
+	ExprMaxHealth:
+		ID: ExprMaxHealth
+		Return type: Number
+		Changers:
+			add
+			set
+			remove
+		Patterns:
+			(mh of %entity%|%entity%'s mh)
+	ExprSlotType:
+		ID: ExprSlotType
+		Return type: Text
+		Changers:
+			none
+		Patterns:
+			slot type
+	ExprSortDown:
+		ID: ExprSortDown
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			sort down %numbers%
+	ExprSortUp:
+		ID: ExprSortUp
+		Return type: Number
+		Changers:
+			none
+		Patterns:
+			sort up %numbers%

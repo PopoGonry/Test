@@ -1,0 +1,92 @@
+command /팀보기:
+    trigger:
+        message "&a<&6인생역전!&a> &f: &f당신은 현재 &b%{%player%.team}% &f팀 입니다."
+
+command /팀설정 [<player>] [<text="">]:
+    trigger:
+        if arg 2 != "부자" OR "거지":
+            message "&a<&6인생역전!&a> &f: 사용법 : /팀설정 &b<플레이어> <부자 / 거지>"
+        
+        else:
+            set {%arg 1%.team} to arg 2
+            message "&a<&6인생역전!&a> &f: &b%arg 1% &f님의 팀이 &b%arg 2% &f 팀 으로 변경되었습니다."
+
+every 1 second:
+    loop all players:
+        delete {chest.list.%loop-players%::*}
+        set {_int} to 0
+        loop 36 times:
+            add slot {_int} of inventory of loop-players to {chest.list.%loop-players%::*}
+            add 1 to {_int}
+			
+on death:
+    if {%victim%.team} is "부자":
+        if {%attacker%.team} is "거지":
+            set {_atint} to 0
+            set {_viint} to 0
+            loop {chest.list.%victim%::*}:
+                set slot {_atint} of inventory of attacker to loop-value
+                add 1 to {_atint}
+
+            loop {chest.list.%attacker%::*}:
+                set slot {_viint} of inventory of victim to loop-value
+                add 1 to {_viint}
+
+            message "&a<&6인생역전!&a> &f: &b<부자> &f로 신분이 변경되었습니다!" to attacker
+            message "&a<&6인생역전!&a> &f: &b<거지> &f로 신분이 변경되었습니다..." to victim
+            set {%victim%.team} to "거지"
+            set {%attacker%.team} to "부자"
+
+on damage:
+    if name of attacker's tool contains "스틸":
+        cancel event
+        execute attacker command "/스틸 %victim%"
+
+
+command /스틸 [<player>]:
+    trigger:
+        if {%arg 1%.team} = "거지":
+            if {%player%.team} = "부자":
+                set {_item} to random integer between 0 and 35
+                delete {%arg 1%.steel::*}
+                add slot {_item} of inventory of arg 1 to {%arg 1%.steel::*}
+                add 1 to {%arg 1%.valuesteel}
+                if {%arg 1%.valuesteel} >= 36:
+                    message "&a<&6인생역전!&a> &f: 상대의 인벤토리에 훔칠 수 있는 물건이 없습니다."
+                    set {%arg 1%.valuesteel} to 0
+                    stop
+                if {%arg 1%.steel::*} is 0 0:
+                    execute player command "/스틸 %arg 1%"
+                    stop
+                loop {banitem.steel::*}:
+                    if {%arg 1%.steel::*} is loop-value:
+                        execute player command "/스틸 %arg 1%"
+                        stop
+                set slot {_item} of inventory of arg 1 to 1 0
+                remove 1 of player's tool from player's inventory
+                wait a tick
+                give {%arg 1%.steel::*} to player
+                message "&a<&6인생역전!&a> &f: &b%arg 1%&f의 인벤토리에서 &b아이템 코드%{%arg 1%.steel::*}%&f에 해당하는 아이템을 훔쳐왔습니다!"
+                set {%arg 1%.valuesteel} to 0
+
+
+command /밴아이템:
+    trigger:
+        message "%{banitem.steel::*}%"
+
+command /밴아이템추가:
+    trigger:
+        add player's tool to {banitem.steel::*}
+        message "&8%player's tool% 이 밴아이템리스트에서 추가 되었습니다."
+
+command /밴아이템제외:
+    trigger:
+        subtract player's tool from {banitem.steel::*}
+        message "&8%player's tool% 이 밴아이템리스트에서 제외 되었습니다."
+
+
+command /스틸권제작:
+    trigger:
+        delete {steel.item::*}
+        add player's tool to {steel.item::*}
+        give {steel.item::*} named "&6인생역전! &b<부자> 전용아이템 &6스틸" to player

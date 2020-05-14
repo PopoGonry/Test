@@ -1,8 +1,9 @@
+
 # 제작자 : 포포곤리
 
 # << 테스트 환경 >>
 # Server : 1.12.2 catserver
-# skript : 2.2-dev24
+# skript : 2.2-dev32
 
 # #################################################### #
 
@@ -13,62 +14,1040 @@ options:
 
 # #################################################### #  
 
+variables:
+	{ST.%player%.money} = 0
 
 options:
-    KUNG: [&a&lK&rung&7-&c&lSTOCK&r]&7
+    KUNG: &r[&a&lK&rung&7-&c&lSTOCK&r]&7
 
 
-function makingSTCh(t: text):
+function resetSTCh(p: player):
+    message "{@INFO} : {@KUNG} 스크립트와 관련된 모든 변수가 초기화 되었습니다." to {_p}
+    loop {{@KUNG}.List::*}:
+        set {_bb} to loop-value
+        delete {{@KUNG}.%loop-value%.ST::*}
+        delete {STName.%loop-value%::*}
+        delete {STCOST.%loop-value%::*}
+        delete {STMVCOST.%loop-value%::*}
+        delete {STAMOUNT.%loop-value%::*}
+        delete {STMVAMOUNT.%loop-value%::*}
+        delete {STTIME.%loop-value%::*}
+        delete {STUP.%loop-value%::*}
+        delete {STUPBEST.%loop-value%::*}
+        delete {STUPWORST.%loop-value%::*}
+        delete {STDOWNBEST.%loop-value%::*}
+        delete {STDOWNWORST.%loop-value%::*}
+        delete {%loop-value%.STC}
+        delete {STACT.%loop-value%::*}
+        delete {STDO.%loop-value%::*}
+        delete {STUS.%loop-value%::*}
+        set {_int} to 0
+        loop 45 times:
+            delete {STJOKBOM.%{_bb}%.%{_int}%::*}
+            delete {STJOKBOMM.%{_bb}%.%{_int}%::*}
+            delete {STJOKBOB.%{_bb}%.%{_int}%::*}
+            add 1 to {_int}
+
+    delete {{@KUNG}.List::*}
+
+function makingSTCh(t: text, p: player):
     add {_t} to {{@KUNG}.List::*}
+    add 0 to {{@KUNG}.%{_t}%.ST::*}
+    message "{@KUNG} : 주식 채널 &b&l%{_t}%&r&7가 생성 되었습니다." to {_p}
 
-function openSTChGUI(t: text):
+function deleteSTCh(t: text, p: player):
+    subtract {_t} from {{@KUNG}.List::*}
+    delete {STUS.%{_t}%::*}
+    delete {STACT.%{_t}%::*}
+    delete {STDO.%{_t}%::*}
+    delete {STUS.%{_t}%::%{_int}%}
+    delete {%{_t}%.STC}
+    delete {{@KUNG}.%{_t}%.ST::*}
+    delete {STName.%{_t}%::*}
+    delete {STCOST.%{_t}%::*}
+    delete {STMVCOST.%{_t}%::*}
+    delete {STAMOUNT.%{_t}%::*}
+    delete {STMVAMOUNT.%{_t}%::*}
+    delete {STTIME.%{_t}%::*}
+    delete {STUP.%{_t}%::*}
+    delete {STUPBEST.%{_t}%::*}
+    delete {STUPWORST.%{_t}%::*}
+    delete {STDOWNBEST.%{_t}%::*}
+    delete {STDOWNWORST.%{_t}%::*}
+    set {_int} to 1
+    loop 45 times:
+        delete {STJOKBOM.%{_t}%.%{_int}%::*}
+        delete {STJOKBOMM.%{_t}%.%{_int}%::*}
+        delete {STJOKBOB.%{_t}%.%{_int}%::*}
+        add 1 to {_int} 
+    message "{@KUNG} : 주식 채널 &b&l%{_t}%&r&7가 제거 되었습니다." to {_p}
 
-command /주식채널초기화:
-    trigger:
-        delete {{@KUNG}.List::*}         
+function renameSTCh(t: text, tt: text, p: player):
+    set {_int} to arraytoIndexSTCh({_t}, {_p})
+    set {{@KUNG}.List::%{_int}%} to {_tt}
+    set {{@KUNG}.%{_tt}%.ST::*} to {{@KUNG}.%{_t}%.ST::*}
+    set {STName.%{_tt}%::*} to {STName.%{_t}%::*}
+    set {STCOST.%{_tt}%::*} to {STCOST.%{_t}%::*}
+    set {STMVCOST.%{_tt}%::*} to {STMVCOST.%{_t}%::*}
+    set {STAMOUNT.%{_tt}%::*} to {STAMOUNT.%{_t}%::*}
+    set {STMVAMOUNT.%{_tt}%::*} to {STMVAMOUNT.%{_t}%::*}
+    set {STTIME.%{_tt}%::*} to {STTIME.%{_t}%::*}
+    set {STUP.%{_tt}%::*} to {STUP.%{_t}%::*}
+    set {STUPBEST.%{_tt}%::*} to {STUPBEST.%{_t}%::*}
+    set {STUPWORST.%{_tt}%::*} to {STUPWORST.%{_t}%::*}
+    set {STDOWNBEST.%{_tt}%::*} to {STDOWNBEST.%{_t}%::*}
+    set {STDOWNWORST.%{_tt}%::*} to {STDOWNWORST.%{_t}%::*}
+    set {STACT.%{_tt}%::*} to {STACT.%{_t}%::*}
+    set {STDO.%{_tt}%::*} to {STDO.%{_t}%::*}
+    set {%{_tt}%.STC} to {%{_t}%.STC}
+    set {STUS.%{_tt}%::*} to {STUS.%{_t}%::*}
 
-command /tt [<text>]:
-    trigger:
-        set {none} to arg-1
+    set {_int} to 1
+    loop 45 times:
+        set {STJOKBOM.%{_tt}%.%{_int}%::*} to {STJOKBOM.%{_t}%.%{_int}%::*}
+        set {STJOKBOMM.%{_tt}%.%{_int}%::*} to {STJOKBOMM.%{_t}%.%{_int}%::*}
+        set {STJOKBOB.%{_tt}%.%{_int}%::*} to {STJOKBOB.%{_t}%.%{_int}%::*}
+        add 1 to {_int} 
 
-command /주식 [<text>] [<text>]:
+    subtract {_t} from {{@KUNG}.List::%{_int}%}
+    delete {STUS.%{_t}%::*}
+    delete {STACT.%{_t}%::*}
+    delete {STDO.%{_t}%::*}
+    delete {%{_t}%.STC}
+    delete {{@KUNG}.%{_t}%.ST::*}
+    delete {STName.%{_t}%::*}
+    delete {STCOST.%{_t}%::*}
+    delete {STMVCOST.%{_t}%::*}
+    delete {STAMOUNT.%{_t}%::*}
+    delete {STMVAMOUNT.%{_t}%::*}
+    delete {STTIME.%{_t}%::*}
+    delete {STUP.%{_t}%::*}
+    delete {STUPBEST.%{_t}%::*}
+    delete {STUPWORST.%{_t}%::*}
+    delete {STDOWNBEST.%{_t}%::*}
+    delete {STDOWNWORST.%{_t}%::*}
+    set {_int} to 1
+    loop 45 times:
+        delete {STJOKBOM.%{_t}%.%{_int}%::*}
+        delete {STJOKBOMM.%{_t}%.%{_int}%::*}
+        delete {STJOKBOB.%{_t}%.%{_int}%::*}
+        add 1 to {_int} 
+    
+    message "{@KUNG} : 주식 채널 &4&l%{_t}%&r&7의 이름이 &b&l%{_tt}%&r&7으로 변경 되었습니다." to {_p}
+
+
+
+
+function subST(t: text, p: player):
+    open chest with 6 rows named "&6채널 &b&l%{_t}%&r&7 주식 등록" to {_p}
+
+function arraytoIndexSTCh(t: text, p: player) :: integer:
+    set {_int} to 1
+    loop {{@KUNG}.List::*}:
+        if {_t} = loop-value:
+            return {_int}
+        else:
+            add 1 to {_int}
+
+
+function checkSTChList(p: player):
+    if {{@KUNG}.List::*} is not set:
+        message "{@KUNG} : 주식 채널이 존재하지 않습니다." to {_p}
+        stop
+    message "{@KUNG} : - 주식 채널 리스트 -" to {_p}
+    set {_int} to 0
+    loop {{@KUNG}.List::*}:
+        add 1 to {_int}
+        message "&7%{_int}% : &b&l%loop-value%" to {_p}
+
+function managerST(t: text, p: player):
+    open chest with 6 rows named "{@KUNG} &b&l%{_t}% &c&l주식관리" to {_p}
+    set {%{_t}%.STC} to 0
+    set {_int} to 0
+    set {_iint} to 1
+    loop {{@KUNG}.%{_t}%.ST::*}:
+        set slot {_int} of current inventory of {_p} to loop-value named "&b&l%{STName.%{_t}%::%{_iint}%}%"
+        if loop-value = 0:
+            add 0 to {_int}
+            add 0 to {_iint}
+        else:
+            add 1 to {_int}
+            add 1 to {_iint}
+            add 1 to {%{_t}%.STC}
+    set slot 45 of current inventory of {_p} to 1 369 named "{@KUNG} &c&l뒤로가기"
+    if {_int} != 45:
+        set slot 49 of current inventory of {_p} to 1 399 named "{@KUNG} &6&l주식 개수 &7&r: &a&l%{_int}%"
+    else:
+        set slot 49 of current inventory of {_p} to 1 166 named "{@KUNG} &6&l주식 개수 &7&r: &c&l%{_int}% &8(MAX)"
+
+function openSTGUI(t: text, i: integer, p: player):
+    set {_int} to ({_i}+1)
+    if {{@KUNG}.%{_t}%.ST::%{_int}%} is not set:
+        stop 
+    
+
+    open chest with 3 rows named "&6채널 &b&l%{_t}%&a %{_i}%번째 &r&7주식 관리" to {_p}
+    set {_int} to 0
+    loop 27 times:
+        set slot {_int} of current inventory of {_p} to 1 160
+        add 1 to {_int}
+
+    set slot 8 of current inventory of {_p} to 1 47  named "{@KUNG} &c&l상승,하락 기록 초기화"
+    set slot 4 of current inventory of {_p} to 1 421 named "{@KUNG} &a&l이름변경"
+    set slot 9 of current inventory of {_p} to 1 339 named "{@KUNG} &6&l주식가격 &7%{STCOST.%{_t}%::%{_i}%}%원"
+    set slot 10 of current inventory of {_p} to 1 340 named "{@KUNG} &5&l총 주식 개수 &7%{STAMOUNT.%{_t}%::%{_i}%}%개"
+    set slot 11 of current inventory of {_p} to 1 347 named "{@KUNG} &d&l주식 변동 시간 &7%{STTIME.%{_t}%::%{_i}%}%초"
+    set slot 12 of current inventory of {_p} to 1 198 named "{@KUNG} &e&l상승 확률 &7%{STUP.%{_t}%::%{_i}%}%%%" 
+
+    set {STUS.%{_t}%::%{_i}%} to "FALSE"
+    if {STCOST.%{_t}%::%{_i}%} or {STAMOUNT.%{_t}%::%{_i}%} or {STTIME.%{_t}%::%{_i}%} or {STUP.%{_t}%::%{_i}%} or {STUPBEST.%{_t}%::%{_i}%} or {STUPWORST.%{_t}%::%{_i}%} or {STDOWNBEST.%{_t}%::%{_i}%} or {STDOWNWORST.%{_t}%::%{_i}%} is not set:
+        set {STUS.%{_t}%::%{_i}%} to "TRUE"
+
+    else if {STACT.%{_t}%::%{_i}%} is not set:
+        set {STACT.%{_t}%::%{_i}%} to "FALSE"
+
+    if {STUS.%{_t}%::%{_i}%} = "TRUE":
+        set slot 13 of current inventory of {_p} to 1 160:7 named "{@KUNG} &7&l모든 목록이 설정되지않음"
+    else if {STACT.%{_t}%::%{_i}%} = "TRUE":
+        set slot 13 of current inventory of {_p} to 1 160:5 named "{@KUNG} &a&l활성화"
+    else if {STACT.%{_t}%::%{_i}%} = "FALSE":
+        set slot 13 of current inventory of {_p} to 1 160:14 named "{@KUNG} &4&l비활성화"
+
+    set slot 14 of current inventory of {_p} to 1 57 named "{@KUNG} &a&l상승 최대 가격 %% &7%{STUPBEST.%{_t}%::%{_i}%}%%%"
+    set slot 15 of current inventory of {_p} to 1 264 named "{@KUNG} &a상승 최저 가격 %% &7%{STUPWORST.%{_t}%::%{_i}%}%%%"
+    set slot 16 of current inventory of {_p} to 1 173 named "{@KUNG} &c&l하락 최대 가격 %% &7%{STDOWNBEST.%{_t}%::%{_i}%}%%%"
+    set slot 17 of current inventory of {_p} to 1 263 named "{@KUNG} &c하락 최저 가격 %% &7%{STDOWNWORST.%{_t}%::%{_i}%}%%%"
+    set slot 18 of current inventory of {_p} to 1 369 named "{@KUNG} &c&l뒤로가기"
+    set slot 22 of current inventory of {_p} to 1 166 named "{@KUNG} &4&l※주식삭제※"
+
+function openSTChGUI(t: text, p: player):
+    open chest with 3 rows named "{@KUNG} &6채널 &b&l%{_t}%&r&7 관리" to {_p}
+    set {_int} to 0
+    loop 27 times:
+        set slot {_int} of current inventory of {_p} to 1 160
+        add 1 to {_int}
+
+    set slot 11 of current inventory of {_p} to 1 339 named "{@KUNG} &6&l주식"
+    set slot 12 of current inventory of {_p} to 1 340 named "{@KUNG} &c&l주식관리"
+    set slot 13 of current inventory of {_p} to 1 133 named "{@KUNG} &6채널 &b&l%{_t}%&r&7"
+    set slot 14 of current inventory of {_p} to 1 421 named "{@KUNG} &a&l이름변경"
+    set slot 15 of current inventory of {_p} to 1 166 named "{@KUNG} &4&l※채널삭제※"
+   
+
+command /주식 [<text>] [<text>] [<text>]:
     trigger:
         if arg-1 = "채널생성":
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널생성 &b[채널이름]"
+                stop
             loop {{@KUNG}.List::*}:
                 if arg-2 = loop-value:
                     message "{@KUNG} : 같은 이름의 채널이 존재합니다."
                     stop
-            if arg-2 is not set:
-                message "{@KUNG} : &l사용법&r&7: /주식 채널생성 &b[채널이름]"
-                stop
-
-            makingSTCh(arg-2)
-            message "{@KUNG} : 주식 채널 &b&l%arg-2%&r&7가 생성 되었습니다."
         
-        else if arg-1 = "채널":
-            message "{@KUNG} : - 주식 채널 리스트 -"
-            set {_int} to 0
+
+            makingSTCh(arg-2, player)
+
+        else if arg-1 = "채널제거":
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널제거 &b[채널이름]"
+                stop
             loop {{@KUNG}.List::*}:
-                add 1 to {_int}
-                message "&7%{_int}% : &b&l%loop-value%"
+                if arg-2 = loop-value:
+                    deleteSTCh(arg-2, player)
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "초기화":
+            message "{@KUNG} : 채팅창에 &4&l초기화확인&r&7을 입력해주세요. &8(c : 취소)"
+            set {%player%.chat.type} to "RESETST"
+
+
+        else if arg-1 = "채널" or "채널리스트":
+            checkSTChList(player)
+
+        else if arg-1 = "채널관리":
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널관리 &b[채널이름]"
+                stop
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    openSTChGUI(arg-2, player)
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "채널이름변경":
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널이름변경 &b[기존채널이름] &b[새로운채널이름]"
+                stop
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    renameSTCh(arg-2, arg-3, player)
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "채널활성화":
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널활성화 &b[채널이름]"
+                stop
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    actallST(arg-2, "TRUE", player)
+                    message "{@KUNG} : &b&l%arg-2% &r&7채널의 모든 주식이 &a&l활성화&r&7되었습니다."
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "채널비활성화":
+            if arg-2 is not set:
+                message "{@KUNG} : &l사용법&r&7: /주식 채널비활성화 &b[채널이름]"
+                stop
+            loop {{@KUNG}.List::*}:
+                if arg-2 = loop-value:
+                    actallST(arg-2, "FALSE", player)
+                    message "{@KUNG} : &b&l%arg-2% &r&7채널의 모든 주식이 &c&l비활성화&r&7되었습니다."
+                    stop
+            message "{@KUNG} : &b&l%arg-2%&r&7 채널은 존재하지 않습니다."
+
+        else if arg-1 = "활성화":
+            if arg-2 is set:
+                message "{@KUNG} : &l사용법&r&7: /주식 활성화"
+                stop
+            actall("TRUE", player)
+            message "{@KUNG} : 모든 주식이 &a&l활성화&r&7되었습니다."
+
+        else if arg-1 = "비활성화":
+            if arg-2 is set:
+                message "{@KUNG} : &l사용법&r&7: /주식 활성화"
+                stop
+            actall("FALSE", player)
+            message "{@KUNG} : 모든 주식이 &c&l비활성화&r&7되었습니다."
+
+
+
+
+
+
         else:
+            message "{@KUNG} INFO : {@INFO}"
             message "{@KUNG} : 사용법:"
+            message "&7 : /주식 채널생성 &b[채널이름]"
+            message "&7 : /주식 채널제거 &b[채널이름]"
+            message "&7 : /주식 채널관리 &b[채널이름]"
+            message "&7 : /주식 채널이름변경 &b[기존채널이름] &b[새로운채널이름]"
+            message "&7 : /주식 채널활성화 &b[채널이름]"
+            message "&7 : /주식 채널비활성화 &b[채널이름]"
+            message "&7 : /주식 활성화"
+            message "&7 : /주식 비활성화"
+            message "&7 : /주식 초기화"
 
 
 
-command /t [<text>]:
-    trigger:
-        makingSTCh(arg-1)
-        message "{@KUNG} : 주식 채널 &b&l%arg-1%&r&7가 생성 되었습니다."
-
-command /test:
-    trigger:
-        open chest with 6 rows named "Test" to player
-        set slot 12 of current inventory of player to 1 166 named "dd"
     
 
 on inventory click:
-    if clicked raw slot is 12:
+    if iname contains "&r&6주식변동정보":
         cancel event
+        if clicked raw slot is 45: #뒤로가기
+            stshopde({%player%.Chname}, {%player%.ChSTId}, player)
 
 
+        if clicked raw slot is 49: #새로고침
+            seejokbo({%player%.Chname}, {%player%.ChSTId}, player)
+
+
+
+
+    if iname contains "&r&b주식":
+        cancel event
+        
+        if clicked raw slot is 11: #매수
+            if {STMVAMOUNT.%{%player%.Chname}%::%{%player%.ChSTId}%} >= 1:
+                set {_int} to {%player%.ChSTId}
+                add 1 to {_int}
+                if player has space for 1 of {{@KUNG}.%{%player%.Chname}%.ST::%{_int}%} named "&6&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}%":
+                    if {ST.%player%.money} >= {STMVCOST.%{%player%.Chname}%::%{%player%.ChSTId}%}:
+                        message "{@KUNG} : &6&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}% &r&7주식을 &6&l%{STMVCOST.%{%player%.Chname}%::%{%player%.ChSTId}%}%원&r&7으로 &a&l매수&r&7하였습니다."
+                        subtract 1 from {STMVAMOUNT.%{%player%.Chname}%::%{%player%.ChSTId}%}
+                        subtract {STMVCOST.%{%player%.Chname}%::%{%player%.ChSTId}%} from {ST.%player%.money}
+                        give player 1 of {{@KUNG}.%{%player%.Chname}%.ST::%{_int}%} named "&6&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}%"
+                
+                        
+                    else:
+                        message "{@KUNG} : 주식 매수을 위한 돈이 부족합니다."
+                else:
+                    message "{@KUNG} : 인벤토리에 공간이 없습니다."
+
+            else:
+                message "{@KUNG} : 주식이 모두 매수 되었습니다."
+
+
+        if clicked raw slot is 12: #매도
+            set {_int} to {%player%.ChSTId}
+            add 1 to {_int}
+            if player has 1 of {{@KUNG}.%{%player%.Chname}%.ST::%{_int}%} named "&6&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}%":
+                message "{@KUNG} : &6&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}% &r&7주식을 &6&l%{STMVCOST.%{%player%.Chname}%::%{%player%.ChSTId}%}%원&r&7으로 &c&l매도&r&7하였습니다."
+                add 1 to {STMVAMOUNT.%{%player%.Chname}%::%{%player%.ChSTId}%}
+                add {STMVCOST.%{%player%.Chname}%::%{%player%.ChSTId}%} to {ST.%player%.money}
+                remove 1 of {{@KUNG}.%{%player%.Chname}%.ST::%{_int}%} named "&6&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}%" from player's inventory
+            else:
+                message "{@KUNG} : 인벤토리에 주식이 없습니다."
+
+
+
+
+        if clicked raw slot is 14: #족보
+            set {%player%.stshopGUI} to "FALSE"
+            seejokbo({%player%.Chname}, {%player%.ChSTId}, player)
+
+
+
+
+        if clicked raw slot is 22: #창닫기
+            set {%player%.stshopGUI} to "FALSE"
+            close inventory of player
+
+
+
+
+    if iname contains "관리" and "채널" and "{@KUNG}":
+        set {%player%.Chname} to iname
+        replace all " " and "&6채널" and "&r&7관리" and "&b&l" and "{@KUNG}" with "" in {%player%.Chname}
+        if clicked raw slot is 0 or 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 16 or 17 or 18 or 19 or 20 or 21 or 22 or 23 or 24 or 25 or 26:
+            cancel event
+        if clicked raw slot is 15:
+            cancel event
+            open chest with 1 row named "{@KUNG} &l&4※채널삭제※ &r&c확인" to player
+            set slot 4 of current inventory of player to 1 166 named "{@KUNG} &l&4※확인※"
+        if clicked raw slot is 11:
+            cancel event
+            stshop({%player%.Chname}, player)
+        if clicked raw slot is 12:
+            cancel event
+            managerST({%player%.Chname}, player)
+        if clicked raw slot is 14:
+            cancel event
+            set {renameSTCh.%player%} to "true"
+            set {%player%.STChNa} to {%player%.Chname}
+            message "{@KUNG} : 채팅창에 &a&l새로운 주식채널 이름&r&7을 입력해주세요. &8(c : 취소)"
+            set {%player%.chat.type} to "STCHRENAME"
+            close inventory of player
+
+    if iname contains "&c&l주식상점":
+        cancel event
+        set {%player%.Chname} to iname
+        replace all " " and "&c&l주식상점" and "{@KUNG}" and "&b&l" with "" in {%player%.Chname}
+        cancel event
+        set {_int} to clicked slot
+        add 1 to {_int}
+        stshopde({%player%.Chname}, {_int}, player)
+
+    if iname contains "※채널삭제※ &r&c확인":
+        cancel event
+        if clicked raw slot is 4:
+            deleteSTCh({%player%.Chname}, player)
+            close inventory of player
+
+    if iname contains "채널" and "&r&7주식 관리":
+        cancel event
+        set {%player%.ChSTId} to iname
+        replace all " " and "&6채널" and "%{%player%.Chname}%" and "번째" and "&r&7주식관리" and "&a" and "&b" and "&l" with "" in {%player%.ChSTId}
+        set {%player%.ChSTId} to {%player%.ChSTId} parsed as integer
+        if clicked raw slot is 18: #뒤로가기
+            managerST({%player%.Chname}, player)
+
+        if clicked raw slot is 22: #삭제
+            open chest with 1 row named "{@KUNG} &4&l※주식삭제※ &r&c확인" to player
+            set slot 4 of current inventory of player to 1 166 named "{@KUNG} &l&4※확인※"
+        
+        if clicked raw slot is 8: #족보초기화
+            message "{@KUNG} : &b&l%{%player%.Chname}% &a&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}%&r&7 주식의 상승,하락 기록이 초기화 되었습니다."
+            set {_int} to 0
+            loop 45 times:
+                delete {STJOKBOM.%{%player%.Chname}%.%{%player%.ChSTId}%::*}
+                delete {STJOKBOMM.%{%player%.Chname}%.%{%player%.ChSTId}%::*}
+                delete {STJOKBOB.%{%player%.Chname}%.%{%player%.ChSTId}%::*}
+                add 1 to {_int}
+
+
+
+        if clicked raw slot is 4: #이름변경
+            set {%player%.chat.type} to "STRENAME"
+            message "{@KUNG} : 채팅창에 &a&l새로운 주식 이름&r&7을 입력해주세요. &8(c : 취소)"
+            close inventory of player
+        if clicked raw slot is 9: #주식가격설정
+            set {%player%.chat.type} to "STOCKCOST"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식가격을 입력해주세요. &8(c : 취소)"
+        if clicked raw slot is 10: #주식개수
+            set {%player%.chat.type} to "STOCKAMOUNT"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식전체개수을 입력해주세요. &8(c : 취소)"
+        if clicked raw slot is 11: #주식변동시간
+            set {%player%.chat.type} to "STOCKTIME"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식변동시간&8(※초 단위※)&7을 입력해주세요. &8(c : 취소)"
+        if clicked raw slot is 12: #상승확률
+            set {%player%.chat.type} to "STOCKUP"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식상승확률&8(※%%단위 최대 100%%※)&7을 입력해주세요. &8(c : 취소)"
+
+
+        if clicked raw slot is 13: #활성 비활성
+            if {STUS.%{%player%.Chname}%::%{%player%.ChSTId}%} = "TRUE":
+
+            else if {STACT.%{%player%.Chname}%::%{%player%.ChSTId}%} = "TRUE":
+                set {STACT.%{%player%.Chname}%::%{%player%.ChSTId}%} to "FALSE"
+                openSTGUI({%player%.Chname}, {%player%.ChSTId}, player)
+            else if {STACT.%{%player%.Chname}%::%{%player%.ChSTId}%} = "FALSE":
+                set {STACT.%{%player%.Chname}%::%{%player%.ChSTId}%} to "TRUE"
+                doST({%player%.Chname} , {%player%.ChSTId}, player)
+                openSTGUI({%player%.Chname}, {%player%.ChSTId}, player)
+
+        if clicked raw slot is 14: #상승최대가격
+            set {%player%.chat.type} to "STOCKUPBEST"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식상승최대가격&8(※%%단위 최대 100%%※)&7을 입력해주세요. &8(c : 취소)"
+        if clicked raw slot is 15: #상승최저가격
+            set {%player%.chat.type} to "STOCKUPWORST"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식상승최저가격&8(※%%단위 최대 100%%※)&7을 입력해주세요. &8(c : 취소)"
+        if clicked raw slot is 16: #하락최대가격
+            set {%player%.chat.type} to "STOCKDOWNBEST"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식하락최대가격&8(※%%단위 최대 100%%※)&7을 입력해주세요. &8(c : 취소)"
+        if clicked raw slot is 17: #하락최저가격
+            set {%player%.chat.type} to "STOCKDOWNWORST"
+            close inventory of player
+            message "{@KUNG} : 채팅창에 주식하락최저가격&8(※%%단위 최대 100%%※)&7을 입력해주세요. &8(c : 취소)"
+
+    if iname contains "&4&l※주식삭제※ &r&c확인":
+        if clicked raw slot is 4:
+            cancel event
+            set {_int} to 0
+            loop {{@KUNG}.%{%player%.Chname}%.ST::*}:
+                add 1 to {_int}
+            set {_iint} to {%player%.ChSTId}
+            add 1 to {_iint}
+            set {{@KUNG}.%{%player%.Chname}%.ST::%{_iint}%} to {{@KUNG}.%{%player%.Chname}%.ST::%{_int}%}
+            delete {{@KUNG}.%{%player%.Chname}%.ST::%{_int}%}
+            set {_iint} to {%player%.ChSTId}
+            subtract 1 from {_int}
+            set {STName.%{%player%.Chname}%::%{_iint}%} to {STName.%{%player%.Chname}%::%{_int}%}
+            set {STCOST.%{%player%.Chname}%::%{_iint}%} to {STCOST.%{%player%.Chname}%::%{_int}%}
+            set {STMVCOST.%{%player%.Chname}%::%{_iint}%} to {STMVCOST.%{%player%.Chname}%::%{_int}%}
+            set {STAMOUNT.%{%player%.Chname}%::%{_iint}%} to {STAMOUNT.%{%player%.Chname}%::%{_int}%}
+            set {STMVAMOUNT.%{%player%.Chname}%::%{_iint}%} to {STMVAMOUNT.%{%player%.Chname}%::%{_int}%}
+            set {STTIME.%{%player%.Chname}%::%{_iint}%} to {STTIME.%{%player%.Chname}%::%{_int}%}
+            set {STUP.%{%player%.Chname}%::%{_iint}%} to {STUP.%{%player%.Chname}%::%{_int}%}
+            set {STUPBEST.%{%player%.Chname}%::%{_iint}%} to {STUPBEST.%{%player%.Chname}%::%{_int}%}
+            set {STUPWORST.%{%player%.Chname}%::%{_iint}%} to {STUPWORST.%{%player%.Chname}%::%{_int}%}
+            set {STDOWNBEST.%{%player%.Chname}%::%{_iint}%} to {STDOWNBEST.%{%player%.Chname}%::%{_int}%}
+            set {STDOWNWORST.%{%player%.Chname}%::%{_iint}%} to {STDOWNWORST.%{%player%.Chname}%::%{_int}%}
+            set {STACT.%{%player%.Chname}%::%{_iint}%} to {STACT.%{%player%.Chname}%::%{_int}%}
+            set {STDO.%{%player%.Chname}%::%{_iint}%} to {STDO.%{%player%.Chname}%::%{_int}%}
+            set {STUS.%{%player%.Chname}%::%{_iint}%} to {STUS.%{%player%.Chname}%::%{_int}%}
+
+            set {STJOKBOM.%{%player%.Chname}%.%{_iint}%::*} to {STJOKBOM.%{%player%.Chname}%.%{_int}%::*}
+            set {STJOKBOMM.%{%player%.Chname}%.%{_iint}%::*} to {STJOKBOMM.%{%player%.Chname}%.%{_int}%::*}
+            set {STJOKBOB.%{%player%.Chname}%.%{_iint}%::*} to {STJOKBOB.%{%player%.Chname}%.%{_int}%::*}
+
+            if {STName.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STName.%{%player%.Chname}%::%{_iint}%}
+            if {STCOST.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STCOST.%{%player%.Chname}%::%{_iint}%}
+            if {STMVCOST.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STMVCOST.%{%player%.Chname}%::%{_iint}%}
+            if {STAMOUNT.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STAMOUNT.%{%player%.Chname}%::%{_iint}%}
+            if {STMVAMOUNT.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STMVAMOUNT.%{%player%.Chname}%::%{_iint}%}
+            if {STTIME.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STTIME.%{%player%.Chname}%::%{_iint}%}
+            if {STUP.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STUP.%{%player%.Chname}%::%{_iint}%}
+            if {STUPBEST.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STUPBEST.%{%player%.Chname}%::%{_iint}%}
+            if {STUPWORST.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STUPWORST.%{%player%.Chname}%::%{_iint}%}
+            if {STDOWNBEST.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STDOWNBEST.%{%player%.Chname}%::%{_iint}%}
+            if {STDOWNWORST.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STDOWNWORST.%{%player%.Chname}%::%{_iint}%}
+            if {STACT.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STACT.%{%player%.Chname}%::%{_iint}%}
+            if {STDO.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STDO.%{%player%.Chname}%::%{_iint}%}
+            if {STUS.%{%player%.Chname}%::%{_int}%} is not set:
+                delete {STUS.%{%player%.Chname}%::%{_iint}%}
+            if {STJOKBOM.%{%player%.Chname}%.%{_int}%::*} is not set:
+                delete {STJOKBOM.%{%player%.Chname}%.%{_iint}%::*}
+            if {STJOKBOMM.%{%player%.Chname}%.%{_int}%::*} is not set:
+                delete {STJOKBOMM.%{%player%.Chname}%.%{_iint}%::*}
+            if {STJOKBOB.%{%player%.Chname}%.%{_int}%::*} is not set:
+                delete {STJOKBOB.%{%player%.Chname}%.%{_iint}%::*}
+
+
+
+
+            delete {STUS.%{%player%.Chname}%::%{_int}%}
+            delete {STACT.%{%player%.Chname}%::%{_int}%}
+            delete {STDO.%{%player%.Chname}%::%{_int}%}
+            delete {STName.%{%player%.Chname}%::%{_int}%}
+            delete {STCOST.%{%player%.Chname}%::%{_int}%}
+            delete {STMVCOST.%{%player%.Chname}%::%{_int}%}
+            delete {STAMOUNT.%{%player%.Chname}%::%{_int}%}
+            delete {STMVAMOUNT.%{%player%.Chname}%::%{_int}%}
+            delete {STTIME.%{%player%.Chname}%::%{_int}%}
+            delete {STUP.%{%player%.Chname}%::%{_int}%}
+            delete {STUPBEST.%{%player%.Chname}%::%{_int}%}
+            delete {STUPWORST.%{%player%.Chname}%::%{_int}%}
+            delete {STDOWNBEST.%{%player%.Chname}%::%{_int}%}
+            delete {STDOWNWORST.%{%player%.Chname}%::%{_int}%}
+            delete {STJOKBOM.%{%player%.Chname}%.%{_int}%::*}
+            delete {STJOKBOMM.%{%player%.Chname}%.%{_int}%::*}
+            delete {STJOKBOB.%{%player%.Chname}%.%{_int}%::*}
+            close inventory of player
+
+
+
+    if iname contains "&c&l주식관리":
+        if click type is right mouse button:
+            cancel event
+            stop
+
+
+        set {%player%.Chname} to iname
+        replace all " " and "&c&l주식관리" and "{@KUNG}" and "&b&l" with "" in {%player%.Chname}
+        cancel event
+        set {_int} to clicked slot
+        add 1 to {_int}
+        openSTGUI({%player%.Chname}, {_int}, player)
+
+
+        if clicked raw slot is 49:
+            cancel event
+            replace all " " and "&6채널" and "&r&7관리" and "&b&l" with "" in {%player%.Chname}
+            subST({%player%.Chname}, player)
+        if clicked raw slot is 45:
+            cancel event
+            replace all " " and "&6채널" and "&r&7관리" and "&b&l" with "" in {%player%.Chname}
+            openSTChGUI({%player%.Chname}, player)
+
+on inventory close:
+    if icname contains "주식 등록":
+        set {_i} to 45
+        set {_int} to 0
+        set {%player%.Chname} to icname
+        replace all " " and "&6채널" and "&r&7주식" and "등록" and "반환" and "&b&l" with "" in {%player%.Chname}
+        set {_int} to 0
+        set {_itemv} to 0
+        delete {_item::*}
+        loop 54 times:
+            if slot {_int} of current inventory of player is not 0 0:
+                add slot {_int} of current inventory of player to {_item::*}
+                add 1 to {_itemv}
+            add 1 to {_int}
+
+        subtract {%{%player%.Chname}%.STC} from {_i}
+        if {_itemv} = 0:
+            stop
+
+        if {_i} >= {_itemv}:
+            add {_item::*} to {{@KUNG}.%{%player%.Chname}%.ST::*}
+            add {_itemv} to {%{%player%.Chname}%.STC}
+
+        else:
+            message "{@KUNG} : 등록 가능한 주식수 초과로 인해 반환됩니다. &8(등록 가능 주식수:%{_i}%개)"
+            wait 1 seconds
+            set {_int} to 0
+            open chest with 6 rows named "&6채널 &b&l%{%player%.Chname}%&r&7 주식 반환" to player
+            loop {_item::*}:
+                set slot {_int} of current inventory of player to loop-value
+                add 1 to {_int}
+ 
+on chat:
+    if {%player%.chat.type} = "RESETST":
+        cancel event
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        if message = "초기화확인":
+            set {%player%.chat.type} to "NOT"
+            resetSTCh(player)
+            stop
+        message "{@KUNG} : 잘못된 입력으로 인해 &4&l초기화확인&7이 취소 되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STRENAME":
+        cancel event
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        message "{@KUNG} : 주식 &b&l%{STName.%{%player%.Chname}%::%{%player%.ChSTId}%}%&r&7의 이름을 &b&l%message%&r&7로 변경 하였습니다."
+        set {STName.%{%player%.Chname}%::%{%player%.ChSTId}%} to "%message%"
+        set {%player%.chat.type} to "NOT"
+        stop
+    if {%player%.chat.type} = "STCHRENAME":
+        cancel event
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        renameSTCh({%player%.Chname}, message, player)
+        set {%player%.chat.type} to "NOT"
+        stop
+
+
+
+    if {%player%.chat.type} = "STOCKCOST":
+        cancel event
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STCOST.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        set {STMVCOST.%{%player%.Chname}%::%{%player%.ChSTId}%} to {STCOST.%{%player%.Chname}%::%{%player%.ChSTId}%}
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 가격이 &b&l%message%원&r&7으로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+
+    if {%player%.chat.type} = "STOCKAMOUNT":
+        cancel event
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STAMOUNT.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        set {STMVAMOUNT.%{%player%.Chname}%::%{%player%.ChSTId}%} to {STAMOUNT.%{%player%.Chname}%::%{%player%.ChSTId}%}
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 개수가 &b&l%message%개&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STOCKTIME":
+        cancel event
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STTIME.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 변동시간이 &b&l%message%초&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STOCKUP":
+        cancel event
+        if message parsed as integer > 100:
+            message "{@KUNG} : 최대 &l&4100%%&r&7까지 설정 가능합니다. 다시 입력해주세요."
+            stop
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STUP.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 상승확률이 &b&l%message%%%&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STOCKUPBEST":
+        cancel event
+        if message parsed as integer > 100:
+            message "{@KUNG} : 최대 &l&4100%%&r&7까지 설정 가능합니다. 다시 입력해주세요."
+            stop
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STUPBEST.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 상승최대가격이 &b&l%message%%%&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STOCKUPWORST":
+        cancel event
+        if message parsed as integer > 100:
+            message "{@KUNG} : 최대 &l&4100%%&r&7까지 설정 가능합니다. 다시 입력해주세요."
+            stop
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STUPWORST.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 상승최저가격이 &b&l%message%%%&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STOCKDOWNBEST":
+        cancel event
+        if message parsed as integer > 100:
+            message "{@KUNG} : 최대 &l&4100%%&r&7까지 설정 가능합니다. 다시 입력해주세요."
+            stop
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STDOWNBEST.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 하락최대가격이 &b&l%message%%%&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    if {%player%.chat.type} = "STOCKDOWNWORST":
+        cancel event
+        if message parsed as integer > 100:
+            message "{@KUNG} : 최대 &l&4100%%&r&7까지 설정 가능합니다. 다시 입력해주세요."
+            stop
+        if message = "c" or "C":
+            set {%player%.chat.type} to "NOT"
+            message "{@KUNG} : 입력상태가 취소 되었습니다."
+            stop
+        set {STDOWNWORST.%{%player%.Chname}%::%{%player%.ChSTId}%} to message parsed as integer
+        message "{@KUNG} : &b&l%{%player%.Chname}%&r&7의 &b&l%{%player%.ChSTId}%번째 &r&7주식의 하락최저가격이 &b&l%message%%%&r&7로 설정되었습니다."
+        set {%player%.chat.type} to "NOT"
+    else:
+
+
+
+
+function doST(t: text, i: integer, p: player):
+    if {STUS.%{_t}%::%{_i}%} = "TRUE":
+        stop
+        message "{@KUNG} : 정보가 미설정됨 ." to {_p}
+    if {STACT.%{_t}%::%{_i}%} is not set:
+        stop
+    if {STACT.%{_t}%::%{_i}%} = "FALSE":
+        stop
+    if {STDO.%{_t}%::%{_i}%} = "TRUE":
+        message "{@KUNG} : &b&l%{_t}% &a&l%{STName.%{_t}%::%{_i}%}%&r&7 주식이 이미 실행중입니다." to {_p}
+        stop
+
+    if {STMVCOST.%{_t}%::%{_i}%} <= 0:
+        set {STACT.%{_t}%::%{_i}%} to "FALSE"
+
+    set {STDO.%{_t}%::%{_i}%} to "TRUE"
+
+    set {STCOOLDOWN.%{_t}%::%{_i}%} to {STTIME.%{_t}%::%{_i}%}
+    loop {STTIME.%{_t}%::%{_i}%} times:
+        if {STACT.%{_t}%::%{_i}%} = "FALSE":
+            message "{@KUNG} : &b&l%{_t}% &a&l%{STName.%{_t}%::%{_i}%}%&r&7 주식이 &c&l비활성화 &r&7되었습니다." to {_p}
+            set {STDO.%{_t}%::%{_i}%} to "FALSE"
+            stop
+        wait 1 second
+        subtract 1 from {STCOOLDOWN.%{_t}%::%{_i}%}
+
+    set {_ranint} to random integer between 1 and 100
+    if {_ranint} <= {STUP.%{_t}%::%{_i}%}:
+        set {_ranint2} to random integer between {STUPWORST.%{_t}%::%{_i}%} and {STUPBEST.%{_t}%::%{_i}%}
+        set {STCHMONEY.%{_t}%::%{_i}%} to (({STMVCOST.%{_t}%::%{_i}%}/100)*{_ranint2})
+        add {STCHMONEY.%{_t}%::%{_i}%} to {STMVCOST.%{_t}%::%{_i}%}
+        jokbosystem({_t}, {_i}, "UP", {_p})
+        
+    else:
+        set {_ranint2} to random integer between {STDOWNWORST.%{_t}%::%{_i}%} and {STDOWNBEST.%{_t}%::%{_i}%}
+        set {STCHMONEY.%{_t}%::%{_i}%} to (({STMVCOST.%{_t}%::%{_i}%}/100)*{_ranint2})
+        subtract {STCHMONEY.%{_t}%::%{_i}%} from {STMVCOST.%{_t}%::%{_i}%}
+        jokbosystem({_t}, {_i}, "DOWN", {_p})
+
+
+
+    set {STDO.%{_t}%::%{_i}%} to "FALSE"
+    doST({_t}, {_i}, {_p})
+    
+
+function jokbosystem(t: text, i: integer, b: text, p: player):
+    set {_int} to 46
+    loop 45 times:
+        set {_iint} to {_int}
+        subtract 1 from {_iint}
+        set {STJOKBOM.%{_t}%.%{_i}%::%{_int}%} to {STJOKBOM.%{_t}%.%{_i}%::%{_iint}%}
+        set {STJOKBOB.%{_t}%.%{_i}%::%{_int}%} to {STJOKBOB.%{_t}%.%{_i}%::%{_iint}%}
+        set {STJOKBOMM.%{_t}%.%{_i}%::%{_int}%} to {STJOKBOMM.%{_t}%.%{_i}%::%{_iint}%}
+        subtract 1 from {_int}
+    set {STJOKBOM.%{_t}%.%{_i}%::%{_int}%} to {STCHMONEY.%{_t}%::%{_i}%}
+    set {STJOKBOMM.%{_t}%.%{_i}%::%{_int}%} to {STMVCOST.%{_t}%::%{_i}%}
+    if {_b} = "UP":
+        set {STJOKBOB.%{_t}%.%{_i}%::1} to "UP"
+    else if {_b} = "DOWN":
+        set {STJOKBOB.%{_t}%.%{_i}%::1} to "DOWN"
+
+
+command /testt:
+    trigger:
+        message "%{STJOKBOM.%{%player%.Chname}%.%{%player%.ChSTId}%::*}%"
+        message "%{STJOKBOMM.%{%player%.Chname}%.%{%player%.ChSTId}%::*}%"
+        message "%{STJOKBOB.%{%player%.Chname}%.%{%player%.ChSTId}%::*}%"
+
+
+
+function stshop(t: text, p: player):
+    open chest with 6 rows named "{@KUNG} &b&l%{_t}% &c&l주식상점" to {_p}
+    set {%{_p}%.Chname} to {_t}
+    set {_int} to 0
+    set {_iint} to 1
+    loop {{@KUNG}.%{_t}%.ST::*}:
+        set slot {_int} of current inventory of {_p} to loop-value named "&b&l%{STName.%{_t}%::%{_iint}%}%"
+        if loop-value = 0:
+            add 0 to {_int}
+            add 0 to {_iint}
+        else:
+            add 1 to {_int}
+            add 1 to {_iint}
+    if {_int} != 45:
+        set slot 49 of current inventory of {_p} to 1 399 named "{@KUNG} &6&l주식 개수 &7&r: &a&l%{_int}%"
+    else:
+        set slot 49 of current inventory of {_p} to 1 166 named "{@KUNG} &6&l주식 개수 &7&r: &c&l%{_int}% &8(MAX)"
+
+
+function stshopde(t: text, i: integer, p: player):
+    set {%{_p}%.Chname} to {_t}
+    set {%{_p}%.ChSTId} to {_i}
+    set {%{_p}%.stshopGUI} to "TRUE"
+    set {_int} to ({_i}+1)
+    if {{@KUNG}.%{_t}%.ST::%{_int}%} is not set:
+        stop 
+    open chest with 3 rows named "&a&l%{STName.%{_t}%::%{_i}%}% &r&b주식" to {_p}
+    set {_int} to 0
+    loop 27 times:
+        set slot {_int} of current inventory of {_p} to 1 160
+        add 1 to {_int}
+    
+    set slot 26 of current inventory of {_p} to 1 388 named "{@KUNG} : &6&l현재 돈 : %{ST.%{_p}%.money}%원"
+    set slot 4 of current inventory of {_p} to 1 347 named "{@KUNG} : &e&l남은변동시간 : %{STCOOLDOWN.%{_t}%::%{_i}%}%초"
+    set slot 11 of current inventory of {_p} to 1 264 named "{@KUNG} : &a&l매수"
+    set slot 12 of current inventory of {_p} to 1 263 named "{@KUNG} : &c&l매도"
+    set slot 13 of current inventory of {_p} to 1 339 named "{@KUNG} : &6&l현재가격 : %{STMVCOST.%{_t}%::%{_i}%}%원"
+    set slot 15 of current inventory of {_p} to 1 340 named "{@KUNG} : &b&l주식개수 : %{STMVAMOUNT.%{_t}%::%{_i}%}%/%{STAMOUNT.%{_t}%::%{_i}%}%개"
+    set slot 22 of current inventory of {_p} to 1 166 named "{@KUNG} : &4&l창닫기"
+    if {STJOKBOB.%{_t}%.%{_i}%::1} = "UP":
+        set slot 14 of current inventory of {_p} to 1 160:13 named "{@KUNG} : &a&l■+%{STJOKBOM.%{_t}%.%{_i}%::1}%원 &7: &6&l%{STJOKBOMM.%{_t}%.%{_i}%::1}%원" 
+
+    if {STJOKBOB.%{_t}%.%{_i}%::1} is "DOWN":
+        set slot 14 of current inventory of {_p} to 1 160:14 named "{@KUNG} : &c&l■-%{STJOKBOM.%{_t}%.%{_i}%::1}%원 &7: &6&l%{STJOKBOMM.%{_t}%.%{_i}%::1}%원"
+
+    if {STJOKBOB.%{_t}%.%{_i}%::1} is not set:
+        set slot 14 of current inventory of {_p} to 1 160:7 named "{@KUNG} : &l변동정보없음"
+
+    wait 10 ticks
+    if {%{_p}%.stshopGUI} is "TRUE":
+        stshopde({_t}, {_i}, {_p})
+
+function seejokbo(t: text, i: integer, p: player):
+    open chest with 6 rows named "&a&l%{STName.%{_t}%::%{_i}%}% &r&6주식변동정보" to {_p}
+    set {_iint} to 0
+    set {_int} to 1
+
+    loop 45 times:
+        if {STJOKBOB.%{_t}%.%{_i}%::%{_int}%} = "UP":
+            set slot {_iint} of current inventory of {_p} to 1 160:13 named "{@KUNG} : &a&l■+%{STJOKBOM.%{_t}%.%{_i}%::%{_int}%}%원 &7: &6&l%{STJOKBOMM.%{_t}%.%{_i}%::%{_int}%}%원" 
+
+        if {STJOKBOB.%{_t}%.%{_i}%::%{_int}%} is "DOWN":
+            set slot {_iint} of current inventory of {_p} to 1 160:14 named "{@KUNG} : &c&l■-%{STJOKBOM.%{_t}%.%{_i}%::%{_int}%}%원 &7: &6&l%{STJOKBOMM.%{_t}%.%{_i}%::%{_int}%}%원"
+
+        add 1 to {_int}
+        add 1 to {_iint}
+    set slot 45 of current inventory of {_p} to 1 369 named "{@KUNG} &c&l뒤로가기"
+    set slot 49 of current inventory of {_p} to 1 399 named "{@KUNG} &b&l새로고침"
+
+
+command /돈:
+	trigger:
+		message "&6&l현재 돈 : &a&l%{ST.%player%.money}%원"
+
+command /돈설정 [<player>] [<integer>]:
+	trigger:
+		if player is op:
+			set {ST.%arg-1%.money} to arg-2
+			message "{@KUNG} :&b %arg-1% &f님의 돈을&b %arg-2%원 &f으로 설정하였습니다."
+
+command /돈보기 [<player>]:
+	trigger:
+		if player is op:
+			message "{@KUNG} :&b %arg-1% &f님은 돈을&b %{ST.%arg-1%.money}%원 &f만큼 소유중 입니다."
+
+command /돈보내기 [<player>] [<integer>]:
+	trigger:
+		if {ST.%player%.money} >= arg-2:
+			subtract arg-2 from {ST.%player%.money}
+			add arg-2 to {ST.%arg-1%.money}
+			message "{@KUNG} :&b %arg-1% &f님에게 돈을&b %arg-2%원 &f만큼 보냈습니다."
+		else:
+			message "{@KUNG} : 돈이 부족합니다."
+
+command /돈뺏기 [<player>] [<integer>]:
+	trigger:
+		if player is op:
+			subtract arg-2 from {ST.%arg-1%.money}
+			add arg-2 to {ST.%player%.money}
+			message "{@KUNG} :&b %arg-1% &f에게 돈을&b %arg-2%원 &f만큼 빼앗았습니다."
+
+command /돈증가 [<player>] [<integer>]:
+	trigger:
+		if player is op:
+			add arg-2 to {ST.%arg-1%.money}
+			message "{@KUNG} :&b %arg-1% &f의 돈을&b %arg-2%원 &f만큼 증가 하였습니다."
+
+command /돈감소 [<player>] [<integer>]:
+	trigger:
+		if player is op:
+			subtract arg-2 from {ST.%arg-1%.money}
+			message "{@KUNG} :&b %arg-1% &f의 돈을&b %arg-2%원 &f만큼 차감 하였습니다."
+
+command /수표 [<integer>] [<integer>]:
+	trigger:
+		if {ST.%player%.money} >= (arg-1 * arg-2):
+			if arg-2 <= 64:
+				loop arg-2 times:
+					give 1 339 named "&6&l수표 : &8&l%arg-1%원" to player
+				subtract (arg-1 * arg-2) from {ST.%player%.money}
+				message "{@KUNG} :&b&l %arg-1%원 &r&7수표를 &b&l%arg-2%개 &r&7발행하였습니다. "
+			else:
+				message "{@KUNG} : 수표는 한번에 최대 64개 까지 발행 가능합니다."
+				
+		else:
+			message "{@KUNG} : 돈이 부족합니다."
+
+
+on rightclick:
+	if name of player's tool contains "수표":
+		set {_name} to player's tool
+		set {_money} to uncolored name of player's tool
+		wait 1 tick
+		replace all " " and "원" and "수표" and ":" with "" in {_money}
+		add {_money} parsed as integer to {ST.%player%.money}
+		remove 1 of {_name} from player's inventory
+		message "{@KUNG} : 수표를 사용하여 &b&l%{_money}%원&r&7을 얻었습니다."
+
+
+command /주식오류해결:
+    trigger:
+        set {_int} to 1
+        loop {{@KUNG}.List::*}:
+            set {STDO.%loop-value%::*} to "FALSE"
+            add 1 to {_int}
+
+
+function actallST(t: text, b: text, p: player):
+    set {_int} to 0
+    loop 45 times:
+        if {STUS.%{_t}%::%{_int}%} = "FALSE":
+            set {STACT.%{_t}%::%{_int}%} to "%{_b}%"
+            doST({_t}, {_int}, {_p})
+        add 1 to {_int}
+    set {_int} to 0 
+    if {_b} = "FALSE":
+        loop 45 times:
+            if {STUS.%{_t}%::%{_int}%} = "FALSE":
+                set {STDO.%{_t}%::%{_int}%} to "%{_b}%"
+            add 1 to {_int}
+
+function actall(b: text, p: player):
+    loop {{@KUNG}.List::*}:
+        set {_bb} to loop-value
+        set {_int} to 0
+        loop 45 times:
+            if {STUS.%{_bb}%::%{_int}%} = "FALSE":
+                set {STACT.%{_bb}%::%{_int}%} to "%{_b}%"
+                doST({_bb}, {_int}, {_p})
+            add 1 to {_int}
+            
+    if {_b} = "FALSE":
+        loop {{@KUNG}.List::*}:
+            set {_bb} to loop-value
+            set {_int} to 0
+            loop 45 times:
+                if {STUS.%{_bb}%::%{_int}%} = "FALSE":
+                    set {STDO.%{_bb}%::%{_int}%} to "%{_b}%"
+                add 1 to {_int} 
+
+on rightclick on entity:
+    loop {{@KUNG}.List::*}:
+        set {_bb} to loop-value
+        if name of entity contains "%{_bb}%":
+            stshop(loop-value, player)
+        

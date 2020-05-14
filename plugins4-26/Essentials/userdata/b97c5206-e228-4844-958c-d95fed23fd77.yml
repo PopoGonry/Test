@@ -1,0 +1,30 @@
+lastAccountName: Popo_Gonry
+timestamps:
+  login: 1587831223089
+  logout: 1587829484858
+  lastteleport: 1587829746521
+ipAddress: 192.168.55.147
+logoutlocation:
+  world: world
+  x: -583.4083778846126
+  y: 4.0
+  z: 269.45172747286995
+  yaw: -152.07918
+  pitch: -23.554464
+lastlocation:
+  world: world
+  x: -599.2489940286348
+  y: 71.09054135074086
+  z: 285.10032263833835
+  yaw: -177.62558
+  pitch: 17.419249
+afk: false
+homes:
+  home:
+    world: world
+    x: -587.0926406008308
+    y: 256.0
+    z: 198.4979568713382
+    yaw: 181.22926
+    pitch: 62.961246
+godmode: false

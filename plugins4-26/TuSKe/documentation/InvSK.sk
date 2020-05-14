@@ -1,0 +1,68 @@
+Effects:
+	EffUpdateInventory:
+		ID: EffUpdateInventory
+		Patterns:
+			update inventory %player%
+Expressions:
+	ExprClickedSingleItem:
+		ID: ExprClickedSingleItem
+		Return type: Item / Material
+		Changers:
+			none
+		Patterns:
+			click item
+	ExprClickedSlot:
+		ID: ExprClickedSlot
+		Return type: integer
+		Changers:
+			none
+		Patterns:
+			clicked slot
+	ExprClickedSlots:
+		ID: ExprClickedSlots
+		Return type: integer
+		Changers:
+			none
+		Patterns:
+			clicked slots
+	ExprCursor:
+		ID: ExprCursor
+		Return type: Item / Material
+		Changers:
+			add
+			set
+			delete
+		Patterns:
+			cursor of %player%
+			%player%'s cursor
+	ExprCursorAmount:
+		ID: ExprCursorAmount
+		Return type: integer
+		Changers:
+			add
+			set
+		Patterns:
+			cursor amount of %player%
+			%player%'s cursor amount
+	ExprRawSlot:
+		ID: ExprRawSlot
+		Return type: integer
+		Changers:
+			none
+		Patterns:
+			raw slot
+	ExprRawSlots:
+		ID: ExprRawSlots
+		Return type: integer
+		Changers:
+			none
+		Patterns:
+			raw slots
+	ExprSlotAmount:
+		ID: ExprSlotAmount
+		Return type: integer
+		Changers:
+			add
+			set
+		Patterns:
+			slot %integer% amount of %inventory%
